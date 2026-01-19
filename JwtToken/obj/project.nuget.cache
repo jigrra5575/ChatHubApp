@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "DjywfCbQkYA=",
+  "dgSpecHash": "ZWOtW4XT74w=",
   "success": true,
-  "projectFilePath": "C:\\Users\\MAHADEV\\OneDrive\\Desktop\\Jigar GITHUB\\Chatting-Application\\JwtToken\\JwtToken.csproj",
+  "projectFilePath": "C:\\Users\\MAHADEV\\OneDrive\\Desktop\\Jigar GITHUB\\ChatHubApp\\JwtToken\\JwtToken.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\MAHADEV\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\MAHADEV\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",

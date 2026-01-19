@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\MAHADEV\\OneDrive\\Desktop\\Jigar GITHUB\\Chatting-Application\\JwtToken\\JwtToken.csproj": {}
+    "C:\\Users\\MAHADEV\\OneDrive\\Desktop\\Jigar GITHUB\\ChatHubApp\\JwtToken\\JwtToken.csproj": {}
   },
   "projects": {
-    "C:\\Users\\MAHADEV\\OneDrive\\Desktop\\Jigar GITHUB\\Chatting-Application\\JwtToken\\JwtToken.csproj": {
+    "C:\\Users\\MAHADEV\\OneDrive\\Desktop\\Jigar GITHUB\\ChatHubApp\\JwtToken\\JwtToken.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MAHADEV\\OneDrive\\Desktop\\Jigar GITHUB\\Chatting-Application\\JwtToken\\JwtToken.csproj",
+        "projectUniqueName": "C:\\Users\\MAHADEV\\OneDrive\\Desktop\\Jigar GITHUB\\ChatHubApp\\JwtToken\\JwtToken.csproj",
         "projectName": "JwtToken",
-        "projectPath": "C:\\Users\\MAHADEV\\OneDrive\\Desktop\\Jigar GITHUB\\Chatting-Application\\JwtToken\\JwtToken.csproj",
+        "projectPath": "C:\\Users\\MAHADEV\\OneDrive\\Desktop\\Jigar GITHUB\\ChatHubApp\\JwtToken\\JwtToken.csproj",
         "packagesPath": "C:\\Users\\MAHADEV\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MAHADEV\\OneDrive\\Desktop\\Jigar GITHUB\\Chatting-Application\\JwtToken\\obj\\",
+        "outputPath": "C:\\Users\\MAHADEV\\OneDrive\\Desktop\\Jigar GITHUB\\ChatHubApp\\JwtToken\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
