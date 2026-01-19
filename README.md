@@ -11,10 +11,13 @@ ChatHub — Real-Time Group Chat Application using ASP.NET Core SignalR<br><br>
 A real-time multi-user group chat platform using ASP.NET Core SignalR with typing indicators, online status, and message broadcasting.<br>
  
   <p align="center"> 
-    <img src="https://img.shields.io/badge/Frontend-Angular-red?logo=angular" /> 
-    <img src="https://img.shields.io/badge/Backend-.NET%20Core-blue?logo=dotnet" /> 
-    <img src="https://img.shields.io/badge/RealTime-SignalR-brightgreen?logo=signalr" /> 
+    <img src="https://img.shields.io/badge/Frontend-Angular-orange?logo=angular" /> 
+    <img src="https://img.shields.io/badge/Backend-.NET%20Core-critical?logo=dotnet" /> 
+    <img src="https://img.shields.io/badge/RealTime-SignalR-darkgreen?logo=signalr" /> 
     <img src="https://img.shields.io/badge/License-MIT-yellow" /> 
+    <img src="https://img.shields.io/badge/Node.js-22.19.0-green?logo=nodedotjs" />
+    <img src="https://img.shields.io/badge/Angular-21.0.0-blue?logo=angular" /> 
+
   </p>
 
 <h2>🌟 Project Overview</h2>
