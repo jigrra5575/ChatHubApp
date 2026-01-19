@@ -1,0 +1,305 @@
+body {
+    position: relative;
+    height: 100vh !important;
+    overflow: hidden;
+}
+
+:root {
+    scrollbar-color: red yellow;
+}
+
+.ctbox {
+    height: calc(100vh - 7rem) !important;
+    background-image: linear-gradient(rgba(131, 131, 131, 0.384), rgba(131, 131, 131, 0.753)), url('/download (1).jfif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: auto;
+    scrollbar-color: #cfcdcdb3 #00000070;
+}
+
+.textmsg {
+    font-family: roboto-mono;
+    font-weight: normal;
+    line-height: 20px;
+}
+
+.nickname {
+    font-size: 10px;
+    color: #0e0e0e;
+    letter-spacing: 1px;
+    margin: 0;
+    font-weight: 700;
+}
+
+.chatline {
+    resize: none;
+
+    overflow: hidden;
+
+    max-height: 120px;
+    border-radius: 20px;
+    padding: 10px 15px;
+    line-height: 1.4;
+}
+
+.sendingtime {
+    font-weight: lighter;
+    color: black;
+    z-index: 1;
+}
+
+.sendingbox {
+    background-color: rgb(0, 0, 0);
+}
+
+.notification {
+    color: white;
+    border: 2px solid rgba(0, 0, 0, 0.425);
+    background-color: rgba(255, 255, 255, 0.808);
+    position: absolute;
+    top: 3px;
+    right: 39%;
+    padding: 8px;
+    height: 50px;
+    overflow: auto;
+    border-radius: 8px;
+    font-weight: 600;
+    width: 350px;
+    text-align: center;
+
+    /* animation */
+    animation: successPulse 1s;
+}
+
+@keyframes slideFade {
+    from {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    from {
+        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 1));
+    }
+    to {
+        filter: drop-shadow(0 0 30px rgba(255, 255, 255, 1));
+    }
+}
+
+.ntf {
+    transition: opacity 0.5s ease;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+/* ====================    additional css  ============================== */
+
+.msg-left {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 5px;
+}
+
+.msg-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.message {
+    max-width: 70%;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 600;
+    margin: 5px;
+    height: fit-content;
+
+    /* IMPORTANT FIX */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+/* recevier */
+.msg-left .message {
+    background-color: #e4e6eb;
+    color: black;
+    border-top-left-radius: 0;
+}
+
+/* sender    */
+.msg-right .message {
+    background-color: #218f49;
+    color: white;
+    border-top-right-radius: 0;
+}
+
+/* =============================== typing-effect ============================== */
+
+.typing {
+    font-size: 13px;
+    margin: 5px 10px;
+    font-style: normal;
+    background-color: #218f49;
+    color: white;
+    border-top-right-radius: 0;
+    width: fit-content;
+}
+
+.dots::after {
+    content: '';
+    animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+    0% {
+        content: '';
+    }
+
+    33% {
+        content: '.';
+    }
+
+    66% {
+        content: '..';
+    }
+
+    100% {
+        content: '...';
+    }
+}
+
+/* ====================================     LEAVE BUTTON    ===================================== */
+
+.leavebutton {
+    font-size: 15px;
+    text-shadow: red;
+    align-self: center;
+    border: 2px solid rgb(255, 0, 0);
+    border-radius: 15px;
+    background-color: red;
+    transform: scale(1);
+    transition: 0.8s;
+}
+
+.leavebutton:hover {
+    transform: scale(1.1);
+}
+
+/* Animations */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px) translateX(0px);
+    }
+
+    33% {
+        transform: translateY(-20px) translateX(10px);
+    }
+
+    66% {
+        transform: translateY(10px) translateX(-10px);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+@keyframes successPulse {
+    0% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* ========================================    Profile css     ==================================================== */
+
+.Profilebadge {
+    /* position: relative; */
+    padding: 5px;
+    z-index: 11;
+}
+
+.ProfileFace {
+    font-size: 30px;
+}
+
+/* Icon hover effect */
+.ProfileFace:hover {
+    color: rgb(65, 255, 129);
+}
+
+/* Hidden div */
+.ProfileBox {
+    position: absolute;
+    top: 4%;
+    right: 7px;
+    height: fit-content;
+    width: 291px;
+    padding: 5px;
+    background-color: rgb(158, 158, 158);
+    border: 2px solid rgb(0, 0, 0);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    /* profile background-img */
+    background-image: url("/login background.jfif");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    opacity: 0;
+    transform: translateX(20px);
+    pointer-events: none;
+
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+/* On Hover Hidden-div */
+.Profilebadge:hover .ProfileBox {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+ol{
+    padding-left: 1.5rem !important;
+}

@@ -1,0 +1,90 @@
+<div class="container-fluid h-100 p-0 position-relative">
+  <div class="container-fluid  h-100 p-0">
+    <div class="h-100">
+      <!-- Profile -->
+      <div class="profile d-flex bg-secondary justify-content-between">
+        <div class="monospace align-content-center"><h2 class="m-0">ChatHub</h2></div>
+        <div class="Profilebadge">
+          <i class="fa-solid fa-circle-user ProfileFace"></i>
+          <div class="ProfileBox">
+            <div class="d-flex justify-content-center">
+              @if (img != null && img != "") {
+              <img class="img-thumbnail" [src]='"data:image/png;base64,"+ img' height="80px" width="80px" />
+              }@else {
+              <img class="img-thumbnail" [src]="defaultimg" height="80px" width="80px" />  
+              }
+            </div>
+            <div class="d-flex justify-content-between flex-column p-2">
+              <table class="table table-bordered table-hover table-dark border-warning">
+                <tbody>
+                  <tr>
+                    <th>Name</th>
+                    <td>{{nick}}</td>
+                  </tr>
+                  <tr>
+                    <th>Email</th>
+                    <td>{{user}}</td>
+                  </tr>
+                  <tr>
+                    <th>Password</th>
+                    <td class="text-success"><b>{{pwd}}</b></td>
+                  </tr>
+                  <tr>
+                    <th>Group Detail</th>
+                    <td>{{group}}</td>
+                  </tr>
+                  <tr>
+                    <th>G-Member</th>
+                    <td class="text-start">
+                      <ol>
+                        @for (m of membercount; track $index) {
+                        <li>
+                          <b>{{m}}<br></b>
+                        </li>
+                        }
+                      </ol>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="text-center mb-2">
+              <button class="btn justify-content-end leavebutton" (click)="leave()">LogOut
+                <i class="fa-solid fa-person-walking-arrow-right "></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ctbox" #chatBox>
+        <div *ngFor="let msg of messages" [ngClass]="msg.user === nick ? 'msg-right' : 'msg-left'">
+          <div class="message">
+            <p class="nickname">~{{msg.user}}</p>
+            <hr class="m-0">
+            <p class="m-0 textmsg">{{msg.text}}</p>
+            <sub class="d-flex justify-content-end my-2 sendingtime">{{msg.time}}</sub>
+          </div>
+        </div>
+        <div class="typing" *ngIf="isTyping">
+          {{typingUser}} is typing<span class="dots">...</span>
+        </div>
+      </div>
+      <div class=" sendingbox p-3 m-auto">
+        <div class="d-flex justify-content-between">
+          <div class=" " style="width: 93%;">
+            <textarea class="form-control chatline" rows="1" [(ngModel)]="message" #msgbox
+              (input)="autoGrow($event); typing()" placeholder="Type message"></textarea>
+          </div>
+          <div class="text-center align-content-center" style="width: 7%;">
+            <span class=" btn mx-2 rounded-pill border border-success text-light" (click)="send()"><i
+                class="fa-solid fa-paper-plane text-success"></i> send</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="notification overflow-auto  align-self-center" [ngClass]="notificationvalue ? 'd-block' : 'd-none'">
+  <div *ngFor="let ntf of notification" class="p-1">
+    <p class="text-success m-0"><i class="fa-solid fa-bell text-danger"></i>{{ntf}}</p>
+  </div>
+</div>
