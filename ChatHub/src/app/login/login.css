@@ -1,0 +1,206 @@
+/* Neon Minimalist Login Form - Complete & Self-Contained */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #000000 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    line-height: 1.6;
+    overflow: hidden;
+}
+
+
+
+
+/* Animations */
+@keyframes pulse {
+    from {
+        filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.3));
+    }
+
+    to {
+        filter: drop-shadow(0 0 30px rgba(0, 255, 136, 0.6));
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px) translateX(0px);
+    }
+
+    33% {
+        transform: translateY(-20px) translateX(10px);
+    }
+
+    66% {
+        transform: translateY(10px) translateX(-10px);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+@keyframes successPulse {
+    0% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+.bigdiv {
+    height: 100vh;
+    margin-top: 0 !important;
+    background-image: url("/login full wallpaper.jfif");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* animation: slideFade 2s forwards; */
+}
+
+.logincontex {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.116), rgba(255, 255, 255, 0.068)), url("/strawberry-white.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100% !important;
+    border-radius: 0 15px 15px 0;
+    animation: rightslide 1.5s forwards;
+}
+
+.firstblock {
+    background-image: url("/19.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 15px 0 0 15px;
+    animation: leftslide 1.5s forwards;
+}
+
+input {
+    padding: 10px !important;
+}
+
+@keyframes slideFade {
+    from {
+        transform: translateX(200px);
+        transform: translateY(200px);
+        /* opacity: 0; */
+    }
+
+    to {
+        transform: translateX(0);
+        transform: translateY(0);
+        /* opacity: 1; */
+    }
+}
+
+@keyframes leftslide {
+    from {
+        transform: translateX(-400px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes rightslide {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.chatHUB {
+    font-size: 68px;
+    background-image: url("/login full wallpaper.jfif");
+    /* background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTit-JnxMDv2GGAkG9_6lPM1695xErnnRg0Ng&s"); */
+    background-position: bottom;
+    color: transparent;
+    background-repeat: no-repeat;
+    background-clip: text;
+    font-weight: 900;
+    animation: HubEffect 2s ease-in forwards;
+}
+
+@keyframes HubEffect {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes InputEffect {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* input {
+    animation: InputEffect 2.5s ease-in forwards;
+}
+
+input:focus {
+    box-shadow:
+        -10px 0 20px rgba(124, 202, 255, 0.877),
+        0 -10px 20px rgba(124, 202, 255, 0.877),
+        0 10px 20px rgba(124, 202, 255, 0.877);
+} */

@@ -1,0 +1,32 @@
+<div class="bigdiv  m-auto my-5 align-content-around">
+  <div class="row d-flex h-100 p-5">
+    <div class="col-8  h-100 firstblock">
+    </div>
+    <div class="col-4 logincontex align-content-around">
+      <div class="d-flex align-content-around justify-content-center mb-3">
+        <h1 class="chatHUB">Chat HUB</h1>
+      </div>
+      <div class="p-3   ">
+        <form action="" class="form">
+          <div class="form-group my-2">
+            <label for="email" class="form-label">Email : </label>
+            <input type="text" class="form-control  shadow-lg" name="email" #email aria-describedby="helpId"
+              placeholder="Email">
+          </div>
+          <div class="form-group my-2">
+            <label for="password" class="form-label">Password : </label>
+            <input type="password" class="form-control shadow-lg" name="password" #password aria-describedby="helpId"
+              placeholder="Password">
+          </div>
+          <div class="form-group text-center my-2">
+            <input type="button" value="Submit" class="btn btn-success"
+              (click)="onsubmit(email.value, password.value)" />
+          </div>
+          <div *ngIf="err" class="text-danger text-center mt-2">
+            {{ err }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
