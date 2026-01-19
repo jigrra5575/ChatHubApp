@@ -1,0 +1,10 @@
+﻿[*.cs]
+
+# CA1859: Use concrete types when possible for improved performance
+dotnet_diagnostic.CA1859.severity = silent
+
+# CS8603: Possible null reference return.
+dotnet_diagnostic.CS8603.severity = silent
+
+# ASP0019: Suggest using IHeaderDictionary.Append or the indexer
+dotnet_diagnostic.ASP0019.severity = silent
