@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { Login } from './login/login';
 import { Chat } from './chat/chat';
 import { LoginAuthentication } from './Services/login-authentication';
+import { Register } from './register/register';
 
 const routes: Routes = [
   
@@ -13,9 +14,13 @@ const routes: Routes = [
   },
   {
     path: 'chat', 
-    component: Chat,
-    canActivate: [LoginAuthentication]
+    component: Chat
   },
+  {
+    path: 'register',
+    component: Register
+  },
+
 
   { path: '**', redirectTo: 'login'}
 ];

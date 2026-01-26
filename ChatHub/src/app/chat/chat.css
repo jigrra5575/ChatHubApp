@@ -8,9 +8,18 @@ body {
     scrollbar-color: red yellow;
 }
 
+.headerImage {
+    height: 43px;
+    border-radius: 50%;
+    width: 43px;
+    margin: 5px 10px;
+    border: 2px double rgb(119, 119, 119);
+    background-color: white;
+}
+
 .ctbox {
-    height: calc(100vh - 7rem) !important;
-    background-image: linear-gradient(rgba(131, 131, 131, 0.384), rgba(131, 131, 131, 0.753)), url('/download (1).jfif');
+    height: calc(100vh - 8.2rem) !important;
+    background-image: linear-gradient(rgba(131, 131, 131, 0.5), rgba(131, 131, 131, 0.5)), url('/peakpx.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -19,7 +28,7 @@ body {
 }
 
 .textmsg {
-    font-family: roboto-mono;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: normal;
     line-height: 20px;
 }
@@ -34,9 +43,7 @@ body {
 
 .chatline {
     resize: none;
-
     overflow: hidden;
-
     max-height: 120px;
     border-radius: 20px;
     padding: 10px 15px;
@@ -50,7 +57,11 @@ body {
 }
 
 .sendingbox {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
     background-color: rgb(0, 0, 0);
+    padding: 5px;
 }
 
 .notification {
@@ -65,7 +76,7 @@ body {
     overflow: auto;
     border-radius: 8px;
     font-weight: 600;
-    width: 350px;
+    width: fit-content;
     text-align: center;
 
     /* animation */
@@ -77,6 +88,7 @@ body {
         transform: translateX(100px);
         opacity: 0;
     }
+
     to {
         transform: translateX(0);
         opacity: 1;
@@ -87,6 +99,7 @@ body {
     from {
         filter: drop-shadow(0 0 20px rgba(255, 255, 255, 1));
     }
+
     to {
         filter: drop-shadow(0 0 30px rgba(255, 255, 255, 1));
     }
@@ -98,6 +111,203 @@ body {
 
 .hidden {
     opacity: 0;
+}
+
+.profilename {
+    font-size: 25px;
+    font-weight: 500;
+    color: whitesmoke;
+}
+
+.groupName {
+    color: rgb(255, 255, 255);
+}
+
+.groupsimbole {
+    font-size: small;
+    color: #ffd900;
+}
+
+/* ====================    upload File/Images css  ============================== */
+.sendingBoxLine {
+    width: 90%;
+    margin: 5px 0;
+    align-self: center;
+}
+
+.AudioRecord{
+    border: 2px solid #218f49;
+    border-radius: 40%;
+    padding: 8px;
+    background-color: darkgrey;
+    color: yellow;
+    align-self: center;
+}
+
+.AudioRecord:hover{
+    background-color: darkgrey;
+    color: #218f49;
+}
+
+#uploadFileButton {
+    border-radius: 40px;
+    /* background-color: #ffffff; */
+    border: 1px solid #000000;
+    height: 50px;
+    width: 50px;
+    padding: 5px;
+    margin: 5px;
+    position: relative;
+    transition: 0.5s;
+}
+
+#uploadFileButton img {
+    background-color: #ffffff;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.addicon {
+    font-size: 30px;
+    height: 40px;
+    width: 40px;
+    color: #ffffff;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+#uploadFileButton:hover {
+    /* background-color: #218f49; */
+    cursor: pointer;
+}
+
+#UploadOption {
+    position: absolute;
+    bottom: 60px;
+    left: 10px;
+    background: #0000002f;
+    color: white;
+    padding: 10px;
+    border-radius: 15px;
+    animation: fadeUp 1s ease-out;
+    width: max-content;
+}
+
+#Options {
+    padding: 0 !important;
+}
+
+#Options li {
+    list-style: none;
+    margin: 5px 0;
+    background-color: #00ff3754;
+    padding: 8px;
+    border-radius: 15px;
+}
+
+#Options li:hover {
+    background-color: #c0c0c054;
+    cursor: pointer;
+}
+
+.icon {
+    transition: 0.5s;
+}
+
+.icontext {
+    color: white;
+    padding: 0;
+
+}
+
+#Options li:hover .icontext {
+    color: #ffd900;
+}
+
+#Options li:hover .icon {
+    color: #ffd900;
+}
+
+
+
+
+@keyframes fadeUp {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+.ImagePreview {
+    position: relative;
+}
+
+.DownloadImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #64646480;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    align-content: center;
+    display: none;
+    animation: fadeOut 0.3s ease-out forwards;
+} 
+
+.DownloadImage a {
+    color: #000000;
+    background-color: #555;
+    width: fit-content;
+    margin: auto;
+    padding: 15px;
+    border-radius: 15px;
+    text-decoration: none;
+    transition: 0.5s;
+}
+
+.DownloadImage a:hover {
+    color: white;
+    background-color: #555555af;
+}
+
+.ImagePreview:hover .DownloadImage {
+    display: block;
+}
+
+@keyframes fadeOut {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+/* ====================    Audio css  ============================== */
+
+.audio-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 8px;
+  max-width: fit-content;
+}
+
+.audio-name {
+  font-size: 12px;
+  color: #555;
+  margin-top: 4px;
+}
+
+.audioname {
+    width: 300px;
+    height: fit-content;
+    word-break: break-all;
+    word-wrap: break-word;
 }
 
 /* ====================    additional css  ============================== */
@@ -114,6 +324,8 @@ body {
 }
 
 .message {
+    display: flex;
+    flex-direction: column;
     max-width: 70%;
     padding: 8px 12px;
     border-radius: 10px;
@@ -136,19 +348,18 @@ body {
 
 /* sender    */
 .msg-right .message {
-    background-color: #218f49;
-    color: white;
+    background-color: #2ec967;
     border-top-right-radius: 0;
 }
 
 /* =============================== typing-effect ============================== */
 
 .typing {
-    font-size: 13px;
-    margin: 5px 10px;
+    font-size: 10px;
+    margin: 1px 2px;
     font-style: normal;
-    background-color: #218f49;
-    color: white;
+    background-color: transparent;
+    color: #218f49;
     border-top-right-radius: 0;
     width: fit-content;
 }
@@ -250,12 +461,17 @@ body {
     }
 }
 
+
+
 /* ========================================    Profile css     ==================================================== */
 
 .Profilebadge {
     /* position: relative; */
     padding: 5px;
     z-index: 11;
+    align-self: center;
+    border-radius: 50%;
+    transition: 0.3s;
 }
 
 .ProfileFace {
@@ -270,36 +486,103 @@ body {
 /* Hidden div */
 .ProfileBox {
     position: absolute;
-    top: 4%;
-    right: 7px;
-    height: fit-content;
-    width: 291px;
+    top: 53px;
+    right: 1px;
+    width: 305px;
     padding: 5px;
     background-color: rgb(158, 158, 158);
     border: 2px solid rgb(0, 0, 0);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    max-height: 650px;
+    height: fit-content;
+    z-index: 99999;
+    overflow: auto;
+    animation: profileboxanimation 0.2s ease-in;
 
-    /* profile background-img */
-    background-image: url("/login background.jfif");
+    background-image: url("/download (1).jfif");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
-    opacity: 0;
-    transform: translateX(20px);
-    pointer-events: none;
-
-    transition: opacity 1s ease, transform 1s ease;
+    display: block;
+    transition: opacity 1s ease;
 }
 
-/* On Hover Hidden-div */
-.Profilebadge:hover .ProfileBox {
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: auto;
+.Profilebadge:hover .profile3dot {
+    color: #ffd900;
 }
 
-ol{
+@keyframes profileboxanimation {
+    0% {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+.table {
+    background-color: #ffffffbe;
+}
+
+ol {
     padding-left: 1.5rem !important;
+}
+
+
+.pdf-card {
+    display: flex;
+    align-items: center;
+    background: #000000;
+    border-radius: 8px;
+    padding: 8px 10px;
+    max-width: 280px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+    margin: 6px 0;
+}
+
+.pdf-left {
+    margin-right: 10px;
+}
+
+.pdf-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+}
+
+.pdf-middle {
+    flex: 1;
+}
+
+.pdf-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+}
+
+.pdf-info {
+    font-size: 12px;
+    color: #666;
+}
+
+.pdf-right i {
+    text-decoration: none;
+    color: #555;
+    transition: 0.5s;
+}
+
+/* .i {
+    text-decoration: none;
+    color: #000000;
+    padding: 0 !important;
+    transition: 0.5s;
+} */
+
+.pdf-right i:hover {
+    color: #218f49;
 }

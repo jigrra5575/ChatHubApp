@@ -2,80 +2,199 @@
   <div class="container-fluid  h-100 p-0">
     <div class="h-100">
       <!-- Profile -->
-      <div class="profile d-flex bg-secondary justify-content-between">
-        <div class="monospace align-content-center"><h2 class="m-0">ChatHub</h2></div>
-        <div class="Profilebadge">
-          <i class="fa-solid fa-circle-user ProfileFace"></i>
-          <div class="ProfileBox">
-            <div class="d-flex justify-content-center">
-              @if (img != null && img != "") {
-              <img class="img-thumbnail" [src]='"data:image/png;base64,"+ img' height="80px" width="80px" />
-              }@else {
-              <img class="img-thumbnail" [src]="defaultimg" height="80px" width="80px" />  
-              }
+      <div class="profile d-flex bg-dark text-light justify-content-between">
+        <div class="d-flex">
+          <div class="d-flex">
+            @if (img != null && img != "") {
+            <img class="headerImage" [src]='"data:image/png;base64,"+ img' />
+            }@else {
+            <img class="heaaderImage" [src]="defaultimg" height="80px" width="80px" />
+            }
+          </div>
+
+          <div class="d-flex align-self-center flex-column">
+            <p class="m-0">{{nick}}</p>
+
+            <div class="typing" *ngIf="isTyping">
+              {{typingUser}} is typing<span class="dots">...</span>
             </div>
-            <div class="d-flex justify-content-between flex-column p-2">
-              <table class="table table-bordered table-hover table-dark border-warning">
-                <tbody>
-                  <tr>
-                    <th>Name</th>
-                    <td>{{nick}}</td>
-                  </tr>
-                  <tr>
-                    <th>Email</th>
-                    <td>{{user}}</td>
-                  </tr>
-                  <tr>
-                    <th>Password</th>
-                    <td class="text-success"><b>{{pwd}}</b></td>
-                  </tr>
-                  <tr>
-                    <th>Group Detail</th>
-                    <td>{{group}}</td>
-                  </tr>
-                  <tr>
-                    <th>G-Member</th>
-                    <td class="text-start">
-                      <ol>
-                        @for (m of membercount; track $index) {
-                        <li>
-                          <b>{{m}}<br></b>
-                        </li>
-                        }
-                      </ol>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="text-center mb-2">
-              <button class="btn justify-content-end leavebutton" (click)="leave()">LogOut
-                <i class="fa-solid fa-person-walking-arrow-right "></i></button>
+
+          </div>
+        </div>
+        <div class="d-flex gap-2 me-3">
+          <div class="p-2 align-self-center"><i class="fa-solid fa-magnifying-glass"></i></div>
+          <div class="p-2 align-self-center Profilebadge" (click)="HeaderMenu($event)" #ProfileBox><i
+              class="fa-solid fa-ellipsis-vertical profile3dot"></i>
+            <div class="ProfileBox" *ngIf="HeaderMenuValue">
+              <div class="d-flex justify-content-center">
+                @if (img != null && img != "") {
+                <img class="img-thumbnail" [src]='"data:image/png;base64,"+ img' height="80px" width="80px" />
+                }@else {
+                <img class="img-thumbnail" [src]="defaultimg" height="80px" width="80px" />
+                }
+              </div>
+              <div class="d-flex justify-content-between flex-column p-2">
+                <table class="table table-bordered table-hover  border-warning ">
+                  <tbody>
+                    <tr>
+                      <th>Name</th>
+                      <td>{{nick}}</td>
+                    </tr>
+                    <tr>
+                      <th>Email</th>
+                      <td>{{user}}</td>
+                    </tr>
+                    <tr>
+                      <th>Password</th>
+                      <td class="text-success"><b>{{pwd}}</b></td>
+                    </tr>
+                    <tr>
+                      <th>Group Detail</th>
+                      <td>{{group}}</td>
+                    </tr>
+                    <tr>
+                      <th>G-Member</th>
+                      <td class="text-start">
+                        <ol>
+                          @for (m of membercount; track $index) {
+                          <li>
+                            <b>{{m}}<br></b>
+                          </li>
+                          }
+                        </ol>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="text-center mb-2">
+                <button class="btn justify-content-end leavebutton" (click)="leave()">LogOut
+                  <i class="fa-solid fa-person-walking-arrow-right "></i></button>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div class="ctbox" #chatBox>
+
         <div *ngFor="let msg of messages" [ngClass]="msg.user === nick ? 'msg-right' : 'msg-left'">
           <div class="message">
             <p class="nickname">~{{msg.user}}</p>
-            <hr class="m-0">
+            <hr class="m-0" height="2px">
+
+            <!--& PDF PREVIEW -->
+            <!-- <img *ngIf="msg.isPdf" class="mt-1" src="/pdgview.jfif" width="150" height="100"
+               title="{{msg.filename}}"/> -->
+            <div class="pdf-card" *ngIf="msg.isPdf" title="{{msg.filename}}">
+
+              <div class="pdf-left">
+                <img src="/pdficon2.png" class="pdf-icon">
+              </div>
+
+              <div class="pdf-middle">
+                <div class="pdf-name">{{ msg.fileName }}</div>
+                <div class="pdf-info">
+                  PDF • {{ msg.size || '—' }}
+                </div>
+              </div>
+              <div class="pdf-right">
+                <div class="fa-2x">
+                  <a class="link p-0 pt-2" *ngIf="msg.isPdf" [href]="msg.PdfUrl" [attr.download]="msg.PdfUrl"
+                    target="_blank" title="{{msg.filename}}">
+                    <i class="fa-regular fa-circle-down"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!--& PDF DOWNLOAD -->
+            <!-- <a class="link p-0 pt-2" *ngIf="msg.isPdf" [href]="msg.PdfUrl" download target="_blank"
+              title="{{msg.filename}}">
+              <div class="d-flex justify-content-between">
+                <div class="align-self-center">Download</div>
+                <div class="fa-2x"><i class="fa-regular fa-circle-down"></i></div>
+              </div>
+            </a> -->
+
+            <!--& IMAGE PREVIEW -->
+            <div class="ImagePreview">
+              <img *ngIf="msg.imageUrl" [src]="msg.imageUrl" class="img-fluid rounded mb-1" style="max-width:200px"
+                title="{{msg.imageUrl}}" />
+
+              <!--& IMAGE DOWNLOAD -->
+              <div class="DownloadImage">
+                <a *ngIf="msg.imageUrl" [href]="msg.imageUrl" download target="_blank" title="{{msg.filename}}">
+                  Download&nbsp;<i class="fa-solid fa-download"></i>
+                </a>
+              </div>
+            </div>
+
+            <!--& AUDIO DOWNLOAD -->
+            <div class="audio-bubble mt-2" *ngIf="msg.isAudio" title="{{ msg.filename }}">
+              <audio controls preload="metadata">
+                <source [src]="msg.AudioUrl" type="audio/mpeg">
+              </audio>
+              <div class="audio-info audioname">
+                <span class="audio-name">{{ msg.size}}&nbsp;{{msg.duration}} second</span>
+              </div>
+            </div>
+
+            <!-- & Message-Chat -->
             <p class="m-0 textmsg">{{msg.text}}</p>
             <sub class="d-flex justify-content-end my-2 sendingtime">{{msg.time}}</sub>
           </div>
-        </div>
-        <div class="typing" *ngIf="isTyping">
-          {{typingUser}} is typing<span class="dots">...</span>
-        </div>
-      </div>
-      <div class=" sendingbox p-3 m-auto">
-        <div class="d-flex justify-content-between">
-          <div class=" " style="width: 93%;">
-            <textarea class="form-control chatline" rows="1" [(ngModel)]="message" #msgbox
-              (input)="autoGrow($event); typing()" placeholder="Type message"></textarea>
+          <div *ngIf="uploadProgress > 0" class="progress my-1">
+            <div class="progress-bar" role="progressbar" [style.width.%]="uploadProgress">
+              {{uploadProgress}}%
+            </div>
           </div>
-          <div class="text-center align-content-center" style="width: 7%;">
-            <span class=" btn mx-2 rounded-pill border border-success text-light" (click)="send()"><i
+
+        </div>
+
+      </div>
+      <div class=" sendingbox m-auto">
+        <div class="d-flex justify-content-between">
+
+          <div id="uploadFileButton">
+            <!-- <img src="/plus.png" (click)="ShowOptionMenu($event)"> -->
+            <i class="fa-sharp fa-solid fa-plus addicon" (click)="ShowOptionMenu($event)"></i>
+          </div>
+
+          <div id="UploadOption" *ngIf="ShowOptionvalue" #optionBox>
+            <ol id="Options">
+              <input type="file" #imgfileunput style="display:none" (change)="onFileSelected($event)" />
+              <input type="file" #pdffileinput accept="application/pdf" style="display:none"
+                (change)="onPDFSelected($event)">
+              <input type="file" #audiofileinput accept="Audio" style="display:none" (change)="onAudioSelect($event)" />
+              <li (click)="openFilePicker()">
+                <i class="fa-regular fa-images icon"></i>
+                <span class="icontext">&nbsp;Images</span>
+              </li>
+              <li (click)="openPDFPicker()">
+                <i class="fa-regular fa-file-pdf icon"></i>
+                <span class="icontext">&nbsp;Document</span>
+              </li>
+              <li (click)="openAudioPicker()">
+                <i class="fa-solid fa-headphones icon"></i>
+                <span class="icontext">&nbsp;Audio</span>
+              </li>
+              <li>
+                <i class="fa-solid fa-camera icon"></i>
+                <span class="icontext">&nbsp;Camera</span>
+              </li>
+            </ol>
+          </div>
+
+
+          <div class="sendingBoxLine">
+            <textarea class="form-control chatline" rows="1" [(ngModel)]="message" #msgbox
+              (input)="autoGrow($event); typing()" (keydown.enter)="send()" placeholder="Type message"></textarea>
+          </div>
+          <div class="text-center align-content-center" style="width: 10%;">
+            <span class="btn mx-1 AudioRecord" (mousedown)="startRecording()" (mouseup)="stopRecording()"
+              (mouseleave)="stopRecording()">
+              <i class="fa-solid fa-microphone"></i></span>
+            <span class="btn mx-1 rounded-pill border border-success text-light" (click)="send()"><i
                 class="fa-solid fa-paper-plane text-success"></i> send</span>
           </div>
         </div>

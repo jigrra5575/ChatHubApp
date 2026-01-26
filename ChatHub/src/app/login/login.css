@@ -16,7 +16,34 @@ body {
     overflow: hidden;
 }
 
+.form {
+    position: relative;
+}
 
+.errorBox {
+    position: absolute;
+    width: 50%;
+    margin: auto;
+    top: -72%;
+    padding: 10px;
+    background-color: bisque;
+    border: 1px solid coral;
+    max-width: fit-content;
+    animation: successPulse 1s ease-in forwards;
+}
+
+.registerButton {
+    color: blue;
+    text-decoration: none;
+    font-weight: normal;
+}
+
+.registerButton:hover {
+    color: rgb(57, 57, 255);
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: underline;
+}
 
 
 /* Animations */
@@ -74,15 +101,18 @@ body {
 
 @keyframes successPulse {
     0% {
-        transform: scale(0);
+        opacity: 0;
+        transform: translateX(-10px)
     }
 
     50% {
-        transform: scale(1.1);
+        opacity: 0.8;
+        transform: translateX(10px)
     }
 
     100% {
-        transform: scale(1);
+        opacity: 1;
+        transform: translateX(0px)
     }
 }
 
@@ -108,16 +138,56 @@ body {
 }
 
 .firstblock {
-    background-image: url("/19.jpg");
+    /* background-image: url("/19.jpg");
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
     border-radius: 15px 0 0 15px;
     animation: leftslide 1.5s forwards;
 }
 
+#bgvideo {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px 0 0 15px;
+
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
 input {
     padding: 10px !important;
+}
+
+.createBtn {
+    border: 3px solid black;
+    background-color: #ffa836;
+    color: #000000;
+    transform: scale(1);
+    transition: 0.5s;
+}
+
+.createBtn:hover {
+    border: 3px solid #ffa836;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    transform: scale(1.1);
+}
+
+.JoinBtn {
+    border: 3px solid black;
+    background-color: #00eeff;
+    color: #000000;
+    transform: scale(1);
+    transition: 0.5s;
+}
+
+.JoinBtn:hover {
+    border: 3px solid #00eeff;
+    background-color: #ffffff;
+    color: black;
+    transform: scale(1.1);
 }
 
 @keyframes slideFade {
@@ -161,13 +231,23 @@ input {
 .chatHUB {
     font-size: 68px;
     background-image: url("/login full wallpaper.jfif");
-    /* background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTit-JnxMDv2GGAkG9_6lPM1695xErnnRg0Ng&s"); */
-    background-position: bottom;
+    background-position: center;
     color: transparent;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-clip: text;
+    font-family: RefrigeratorDeluxeBold, sans-serif;
     font-weight: 900;
     animation: HubEffect 2s ease-in forwards;
+}
+
+.imageMarvel {
+    bottom: 100%;
+    position: absolute;
+}
+
+.imageMarvel img{
+    height: 80px;
+    width: 80px;
 }
 
 @keyframes HubEffect {

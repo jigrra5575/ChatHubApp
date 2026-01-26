@@ -7,18 +7,23 @@ import { Chat } from './chat/chat';
 import { Login } from './login/login';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { jwtTokenInterceptor } from './Services/jwt-token-interceptor';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Register } from './register/register';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     App,
     Chat,
-    Login
+    Login,
+    Register
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

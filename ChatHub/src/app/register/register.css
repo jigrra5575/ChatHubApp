@@ -1,0 +1,77 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.main {
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.FormHeading{
+    text-align: center;
+    color: rgb(255, 255, 255);
+    font-family: "Audiowide", sans-serif;
+    font-size: 40px;
+    padding-bottom: 5%;
+    font-weight: 800;
+}
+.form {
+    position: absolute;
+    width: 50%;
+    top: 30%;
+    left: 25%;
+    margin:auto;
+    padding: 20px;
+    background-color: rgba(92, 92, 92,0.88);
+    text-align: center;
+    border-radius: 15px;
+    animation: fadeUp 1s ease-in forwards;
+}
+.table th{
+    color: white !important;
+    font-weight: 400 !important;
+}
+
+.input {
+    padding: 10px;
+    border-radius: 20px;
+    margin: 2px;
+    background-color: rgba(228, 228, 228, 0.473);
+    border-style: none;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.input:focus {
+    background-color: #39ff8294;
+    color: aliceblue;
+   box-shadow:
+        -10px 0 20px rgba(124, 202, 255, 0.877),
+        0 -10px 20px rgba(124, 202, 255, 0.877),
+        0 10px 20px rgba(124, 202, 255, 0.877);;
+}
+
+.LoginButton {
+    background-color: coral;
+    padding: 5px 65px;
+    margin-top: 10px;
+    border-radius: 30px;
+    border-style: none;
+}
+
+/* ================================    Effect Frame    ========================================= */
+
+@keyframes fadeUp {
+    from {
+        /* transform: translateY(40px); */
+        opacity: 0;
+    }
+
+    to {
+        /* transform: translateY(0); */
+        opacity: 1;
+    }
+}

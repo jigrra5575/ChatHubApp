@@ -1,10 +1,15 @@
 <div class="bigdiv  m-auto my-5 align-content-around">
   <div class="row d-flex h-100 p-5">
     <div class="col-8  h-100 firstblock">
+      <video id="bgvideo" src="w/marvel bg video.mp4" autoplay loop preload="metadata" muted
+        poster="/3-b65c0505.jpg"></video>
     </div>
     <div class="col-4 logincontex align-content-around">
-      <div class="d-flex align-content-around justify-content-center mb-3">
+      <div class="d-flex align-content-around justify-content-center mb-3 position-relative">
         <h1 class="chatHUB">Chat HUB</h1>
+        <!-- <div class="imageMarvel  chatHUB"> 
+          <img src="/char-dd932e13.png" alt="" srcset="">
+        </div> -->
       </div>
       <div class="p-3   ">
         <form action="" class="form">
@@ -18,11 +23,31 @@
             <input type="password" class="form-control shadow-lg" name="password" #password aria-describedby="helpId"
               placeholder="Password">
           </div>
+          <div class="form-group my-3" *ngIf="!groupfildvalue">
+            <div class="d-flex justify-content-around row">
+              <div class="col-4 justify-content-end d-flex">
+                <input type="button" value="CreateGroup" class="createBtn btn " (click)="CreateGroup()" />
+              </div>
+              <div class="col-4 justify-content-start d-flex">
+                <input type="button" value="JoinGroup" class="JoinBtn btn" (click)="JoinGroup()" />
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="groupfildvalue">
+            <label for="groupname" class="form-label">{{GroupTitle}}</label>
+            <input type="text" class="form-control shadow-lg" name="groupname" #groupname aria-describedby="helpId"
+              placeholder="Groupname">
+          </div>
+
           <div class="form-group text-center my-2">
-            <input type="button" value="Submit" class="btn btn-success"
+            <input type="button" value="Login" class="btn btn-success w-100"
               (click)="onsubmit(email.value, password.value)" />
           </div>
-          <div *ngIf="err" class="text-danger text-center mt-2">
+          <div class="text-center">
+            <a class="registerButton" (click)="register()">Sign Up? Or Register..!</a>
+          </div>
+          <div *ngIf="err.length > 0" class="text-danger text-center mt-2 errorBox">
             {{ err }}
           </div>
         </form>

@@ -13,12 +13,14 @@ export class LoginAuthentication {
   ) { }
  
   canActivate(): boolean {
+    
     // if (!this.authentication.isAuthenticated()) {
     //   return true;
     // } else {
     //   this.route.navigate(['/chat']);
     //   return false;
     // }
+
     if (this.authentication.isAuthenticated()) {
       return true;
     }

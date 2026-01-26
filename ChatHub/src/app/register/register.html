@@ -1,0 +1,25 @@
+<div class="main">
+      <video id="bgvideo" src="/marvel bg video.mp4" autoplay loop preload="metadata" muted></video>
+    <form class="form" [formGroup]="signupform" enctype="multipart/form-data" (ngSubmit)="register()" >
+        <p class="FormHeading">REGISTER FORM</p>
+        <table class="table text-start">
+            <tr>
+                <th>Username :</th>
+                <td><input class="input" type="text" name="Username"  placeholder="Username" formControlName="Username"/></td>
+            </tr>
+            <tr>
+                <th>Email :</th>
+                <td><input class="input" type="Email" name="UserEmail"   placeholder="UserEmail" formControlName="email"/></td>
+            </tr>
+            <tr>
+                <th>Password :</th>
+                <td><input class="input" type="text" name="Password"   placeholder="Password" formControlName="password"/></td>
+            </tr>
+            <tr>
+                <th>Image :</th>
+                <td><input type="file"  (change)="onFileChange($event)" name="UserImage"  formControlName="image"/></td>
+            </tr>
+        </table>
+        <button type="submit" class="LoginButton btn btn-success" [disabled]="signupform.invalid">Register</button>
+    </form>
+</div>

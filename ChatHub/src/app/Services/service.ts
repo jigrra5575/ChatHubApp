@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class Service {
-   constructor(
+  constructor(
     private http: HttpClient
   ) { }
 
@@ -17,4 +17,23 @@ export class Service {
     return this.http.get('https://localhost:7249/api/Protected/secret', { responseType: 'text' });
   }
 
+  registeruser(data: FormData) {
+    return this.http.post('https://localhost:7154/CREATE-USERS', data);
+  }
+
+  uploadfile(data: FormData) {
+    return this.http.post('https://localhost:7249/uploadfile', data)
+  }
+
+  uploadPDF(data: FormData) {
+    return this.http.post('https://localhost:7249/UploadPDF', data);
+  }
+
+  uploadAudio(data: FormData) {
+    return this.http.post('https://localhost:7249/UploadAudio', data);
+  }
+
+  uploadRecording(data: FormData) {
+    return this.http.post('https://localhost:7249/UploadRcordingFile', data);
+  }
 }

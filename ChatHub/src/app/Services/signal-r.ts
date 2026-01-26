@@ -21,9 +21,9 @@ export class SignalR {
           }
         }
       ).withAutomaticReconnect().build();
+    console.log('SignalR Connected -jigar');
 
     await this.hub.start().catch(err => console.error(err));;
-    console.log('SignalR Connected');
   }
 
   joinGroup(group: string, user: any) {
@@ -39,7 +39,7 @@ export class SignalR {
     this.hub.invoke('SendGroupMessage', group, user, message);
   }
 
-  onGroupMessage(callback: (user: string, msg: string, img: string) => void) {
+  onGroupMessage(callback: (user: string, msg: string) => void) {
     this.hub.on('ReceiveGroupMessage', callback);
   }
 
@@ -63,5 +63,37 @@ export class SignalR {
     this.hub.on('UserTyping', (user) => {
       callback(user);
     });
+  }
+
+  sendFileMessage(group: string, user: string, fileName: string, fileUrl: any, filesize: string) {
+    this.hub.invoke('SendFileMessage', group, user, fileName, fileUrl, filesize);
+  }
+
+  onFileReceived(cb: (user: string, fileName: string, fileUrl: string, filesize: string) => void) {
+    this.hub.on('ReceiveFile', cb);
+  }
+
+  sendPDFfile(group: string, user: string, fileName: string, fileUrl: any, filesize: string) {
+    this.hub.invoke('SendPDFFile', group, user, fileName, fileUrl, filesize);
+  }
+
+  onPDFRecieve(callback: (group: string, user: string, fileName: string, fileUrl: string, filesize: string) => void) {
+    this.hub.on('ReceivePDF', callback);
+  }
+
+  sendAudioFIle(group: string, user: string, fileName: string, fileUrl: string, filesize: string) {
+    this.hub.invoke('SendAudioFile', group, user, fileName, fileUrl, filesize);
+  }
+
+  onRecieveAudio(callback: (user: string, filename: string, fileurl: string, filesize: string) => void) {
+    this.hub.on('RecieveAudio', callback);
+  }
+
+  sendAudioMessage(group: string, user: string, fileName: string, RecordingUrl: string, filesize: string, duration: number) {
+    this.hub.invoke('SendRecordingMessage', group, user, fileName, RecordingUrl, filesize, duration)
+  }
+
+  onRecieveRecording(callback: (user: string, fileName: string, RecordingUrl: string, filesize: string, duration: number) => void) {
+    this.hub.on('RecieveRecording', callback);
   }
 }
