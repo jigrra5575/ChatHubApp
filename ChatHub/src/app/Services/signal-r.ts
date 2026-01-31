@@ -26,20 +26,23 @@ export class SignalR {
     await this.hub.start().catch(err => console.error(err));;
   }
 
-  joinGroup(group: string, user: any) {
-    this.hub.invoke('JoinGroup', group, user);
+  joinGroup(group: string, user: any, id: string) {
+    this.hub.invoke('JoinGroup', group, user, id);
   }
 
   leaveGroup(group: string, user: any) {
     this.hub.invoke('LeaveGroup', group, user);
   }
 
+  SignOut(group: string, user: any) {
+    this.hub.invoke('SignOutGroup', group, user);
+  }
 
   sendGroupMessage(group: string, user: any, message: string) {
     this.hub.invoke('SendGroupMessage', group, user, message);
   }
 
-  onGroupMessage(callback: (user: string, msg: string) => void) {
+  onGroupMessage(callback: (user: string, msg: string, messageid: any) => void) {
     this.hub.on('ReceiveGroupMessage', callback);
   }
 
@@ -65,19 +68,19 @@ export class SignalR {
     });
   }
 
-  sendFileMessage(group: string, user: string, fileName: string, fileUrl: any, filesize: string) {
+  sendFileMessage(group: string, user: string, fileName: string, fileUrl: BinaryType, filesize: string) {
     this.hub.invoke('SendFileMessage', group, user, fileName, fileUrl, filesize);
   }
 
-  onFileReceived(cb: (user: string, fileName: string, fileUrl: string, filesize: string) => void) {
+  onFileReceived(cb: (user: string, fileName: string, fileUrl: string, filesize: string, messageid: number) => void) {
     this.hub.on('ReceiveFile', cb);
   }
 
-  sendPDFfile(group: string, user: string, fileName: string, fileUrl: any, filesize: string) {
+  sendPDFfile(group: string, user: string, fileName: string, fileUrl: string, filesize: string) {
     this.hub.invoke('SendPDFFile', group, user, fileName, fileUrl, filesize);
   }
 
-  onPDFRecieve(callback: (group: string, user: string, fileName: string, fileUrl: string, filesize: string) => void) {
+  onPDFRecieve(callback: (group: string, user: string, fileName: string, fileUrl: string, filesize: string, messageid: number) => void) {
     this.hub.on('ReceivePDF', callback);
   }
 
@@ -85,7 +88,7 @@ export class SignalR {
     this.hub.invoke('SendAudioFile', group, user, fileName, fileUrl, filesize);
   }
 
-  onRecieveAudio(callback: (user: string, filename: string, fileurl: string, filesize: string) => void) {
+  onRecieveAudio(callback: (user: string, filename: string, fileurl: string, filesize: string, messageid: number) => void) {
     this.hub.on('RecieveAudio', callback);
   }
 
@@ -93,7 +96,27 @@ export class SignalR {
     this.hub.invoke('SendRecordingMessage', group, user, fileName, RecordingUrl, filesize, duration)
   }
 
-  onRecieveRecording(callback: (user: string, fileName: string, RecordingUrl: string, filesize: string, duration: number) => void) {
+  onRecieveRecording(callback: (user: string, fileName: string, RecordingUrl: string, filesize: string, duration: number, messageid: number) => void) {
     this.hub.on('RecieveRecording', callback);
   }
+
+  //~=====================================    LOADING CHAT HISTORY    ======================================================
+
+  onChatHistory(callback: (history: any[]) => void) {
+    this.hub.on('ReceiveChatHistory', callback);
+  }
+
+  //~=====================================    REACTION SEND AND RECIEVE    ======================================================
+
+  sendReaction(msgId: number, emoji: string, group: string, reactuser: string) {
+    this.hub.invoke("SendReaction", group, msgId, emoji, reactuser);
+  }
+  deleteReaction(msgId: number, emoji: string, group: string, reactuser: string) {
+    this.hub.invoke("DeleteReaction", group, msgId, emoji, reactuser);
+  }
+  
+  recieveReaction(callback: (msgid: number, emoji: string, reactuser:string) => void) {
+    this.hub.on('UpdateReaction', callback)
+  }
+
 }

@@ -20,11 +20,24 @@ body {
     position: relative;
 }
 
+.form-select {
+    padding: 10px;
+    color: #15ff00;
+    background-color: #00000098;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.form-floating {
+    padding: 10px;
+    border-radius: 15px !important;
+}
+
 .errorBox {
     position: absolute;
     width: 50%;
     margin: auto;
-    top: -72%;
+    top: -65%;
     padding: 10px;
     background-color: bisque;
     border: 1px solid coral;
@@ -120,11 +133,26 @@ body {
 .bigdiv {
     height: 100vh;
     margin-top: 0 !important;
-    background-image: url("/login full wallpaper.jfif");
+    background-image: url("/bg.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     /* animation: slideFade 2s forwards; */
+}
+
+.maindiv {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    transform: translate(-50%, -50%);
+    /* Pulls the div back to the true center */
+
+    /* Optional: Glass look from earlier */
+    background: rgba(92, 92, 92, 0.315);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 15px;
 }
 
 .logincontex {
@@ -132,18 +160,26 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    height: 100% !important;
-    border-radius: 0 15px 15px 0;
+    height: 90% !important;
+    border-radius: 15px;
+    width: 450px;
+    margin: auto;
+    margin-right: 100px;
     animation: rightslide 1.5s forwards;
 }
 
 .firstblock {
-    /* background-image: url("/19.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat; */
     border-radius: 15px 0 0 15px;
     animation: leftslide 1.5s forwards;
+}
+
+.secondblock {
+    display: flex;
+    width: fit-content;
+}
+
+.buttondiv {
+    width: fit-content;
 }
 
 #bgvideo {
@@ -229,14 +265,14 @@ input {
 }
 
 .chatHUB {
-    font-size: 68px;
-    background-image: url("/login full wallpaper.jfif");
-    background-position: center;
+    font-size: 65px;
+    background-image: url("/pc1.jfif");
+    background-position: bottom;
     color: transparent;
     background-repeat: repeat;
     background-clip: text;
     font-family: RefrigeratorDeluxeBold, sans-serif;
-    font-weight: 900;
+    font-weight: 800;
     animation: HubEffect 2s ease-in forwards;
 }
 
@@ -245,7 +281,7 @@ input {
     position: absolute;
 }
 
-.imageMarvel img{
+.imageMarvel img {
     height: 80px;
     width: 80px;
 }

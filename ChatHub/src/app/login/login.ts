@@ -23,20 +23,45 @@ export class Login implements AfterViewInit {
   message = null;
   err: string[] = [];
   groupfildvalue: boolean = false;
+  createfildvalue: boolean = false;
   GroupTitle: string = "";
+  allGroups: any[] = [];
+
+  @ViewChild('groupname') group!:ElementRef;
+  @ViewChild('newgroupname') newgroup!:ElementRef;
+
+  ngOnInit() {
+    this.service.getAllGroups().subscribe({
+      next: (res: any) => {
+        this.allGroups = res;
+      }
+    });
+  }
 
   JoinGroup() {
-    this.groupfildvalue = true;
+    this.groupfildvalue = false;
+    this.createfildvalue = true;
     this.GroupTitle = "Existed Group Name:"
   }
+
   CreateGroup() {
+    this.createfildvalue = false;
     this.groupfildvalue = true;
     this.GroupTitle = "New Group :"
   }
 
   onsubmit(email: any, password: any) {
     localStorage.setItem('password', password);
-    localStorage.setItem('groupname', this.groupname.nativeElement.value);
+
+    if(this.createfildvalue == false && this.groupfildvalue == true){
+      localStorage.setItem('newgroupname', this.newgroup.nativeElement.value);
+    }
+    else{
+      localStorage.setItem('groupid', this.group.nativeElement.value);
+      localStorage.setItem('groupname', this.group.nativeElement.text);
+    }
+
+
     this.authentication.login(email, password).subscribe({
       next: (res: any) => {
         if (res) {
@@ -44,6 +69,7 @@ export class Login implements AfterViewInit {
           localStorage.setItem('token', res.token);
           localStorage.setItem('nick', res.username);
           localStorage.setItem('img', res.img);
+          localStorage.setItem('userid', res.userId);
 
           //* protected data get
           this.service.getprotecteddata().subscribe((res: any) => {
@@ -77,6 +103,8 @@ export class Login implements AfterViewInit {
         this.cdr.detectChanges();
       }
     });
+
+
   }
 
   ngAfterViewInit() {

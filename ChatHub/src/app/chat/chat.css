@@ -8,6 +8,92 @@ body {
     scrollbar-color: red yellow;
 }
 
+/* ====================    WLCOME POPUP BOX  ============================== */
+.NoPointerevent {
+    pointer-events: none;
+    opacity: 0.6;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+.Pointerevent {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.welcomePopUp {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    transform: translate(-50%, -50%);
+    width: 700px;
+
+    /* Optional: Glass look from earlier */
+    background: rgba(71, 71, 71, 0.63);
+    border: 1px solid hsl(0, 0%, 0%);
+    backdrop-filter: blur(10px);
+    padding: 10px;
+    border-radius: 15px;
+    animation: glowUp 1s ease-in forwards;
+}
+
+.messageHeader {
+    padding: 10px;
+    text-align: center;
+    color: rgb(255, 208, 0);
+}
+
+.messageHeader span {
+    font-size: 25px;
+}
+
+.messagebody {
+    background-color: #7c7c7cd0;
+    border-radius: 15px;
+    margin: 15px 0;
+    padding: 15px;
+    text-align: start;
+}
+
+.messagebody ol {
+    padding: 5px;
+    list-style-type: disc;
+    text-align: start;
+    font-weight: bolder;
+}
+
+.messagebody ol li {
+    margin: 5px 0;
+    color: rgb(57, 57, 57);
+    word-spacing: 2px;
+}
+
+.messagebody ol span {
+    color: black;
+    font-weight: bold;
+}
+
+.closebutton {
+    text-align: center;
+}
+
+@keyframes glowUp {
+    from {
+        transform: scale(0.9) translate(-60%, -60%);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) translate(-50%, -50%);
+        opacity: 1;
+    }
+}
+
+
+
+/* ====================   css  ============================== */
 .headerImage {
     height: 43px;
     border-radius: 50%;
@@ -17,19 +103,55 @@ body {
     background-color: white;
 }
 
+.centerdate-wrapper {
+    position: sticky;
+    top: 10px;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-self: center;
+
+    pointer-events: none;
+    margin: 15px 0;
+}
+
+.centerdate {
+    pointer-events: auto;
+}
+
+.centerdate p {
+    background-color: rgb(51, 51, 51);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    margin: 0;
+    width: 100px;
+    font-weight: 600;
+    text-align: center;
+}
+
 .ctbox {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+
     height: calc(100vh - 8.2rem) !important;
     background-image: linear-gradient(rgba(131, 131, 131, 0.5), rgba(131, 131, 131, 0.5)), url('/peakpx.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    overflow: auto;
+    overflow-y: auto;
     scrollbar-color: #cfcdcdb3 #00000070;
 }
 
 .textmsg {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-weight: normal;
+    font-weight: 600;
     line-height: 20px;
 }
 
@@ -129,13 +251,14 @@ body {
 }
 
 /* ====================    upload File/Images css  ============================== */
+
 .sendingBoxLine {
     width: 90%;
     margin: 5px 0;
     align-self: center;
 }
 
-.AudioRecord{
+.AudioRecord {
     border: 2px solid #218f49;
     border-radius: 40%;
     padding: 8px;
@@ -144,14 +267,13 @@ body {
     align-self: center;
 }
 
-.AudioRecord:hover{
+.AudioRecord:hover {
     background-color: darkgrey;
     color: #218f49;
 }
 
 #uploadFileButton {
     border-radius: 40px;
-    /* background-color: #ffffff; */
     border: 1px solid #000000;
     height: 50px;
     width: 50px;
@@ -177,7 +299,6 @@ body {
 }
 
 #uploadFileButton:hover {
-    /* background-color: #218f49; */
     cursor: pointer;
 }
 
@@ -228,9 +349,6 @@ body {
     color: #ffd900;
 }
 
-
-
-
 @keyframes fadeUp {
     0% {
         opacity: 0;
@@ -257,7 +375,7 @@ body {
     align-content: center;
     display: none;
     animation: fadeOut 0.3s ease-out forwards;
-} 
+}
 
 .DownloadImage a {
     color: #000000;
@@ -280,10 +398,11 @@ body {
 }
 
 @keyframes fadeOut {
-    0%{
+    0% {
         opacity: 0;
     }
-    100%{
+
+    100% {
         opacity: 1;
     }
 }
@@ -291,16 +410,16 @@ body {
 /* ====================    Audio css  ============================== */
 
 .audio-card {
-  background: #fff;
-  border-radius: 8px;
-  padding: 8px;
-  max-width: fit-content;
+    background: #fff;
+    border-radius: 8px;
+    padding: 8px;
+    max-width: fit-content;
 }
 
 .audio-name {
-  font-size: 12px;
-  color: #555;
-  margin-top: 4px;
+    font-size: 12px;
+    color: #555;
+    margin-top: 4px;
 }
 
 .audioname {
@@ -315,20 +434,25 @@ body {
 .msg-left {
     display: flex;
     justify-content: flex-start;
-    margin-top: 5px;
+    margin-bottom: 10px;
+    width: 100%;
 }
 
 .msg-right {
     display: flex;
     justify-content: flex-end;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 .message {
+    /* position: relative; */
     display: flex;
+    position: relative;
     flex-direction: column;
     max-width: 70%;
     padding: 8px 12px;
-    border-radius: 10px;
+    border-radius: 8px;
     font-weight: 600;
     margin: 5px;
     height: fit-content;
@@ -339,11 +463,181 @@ body {
     white-space: pre-wrap;
 }
 
+.ReactionMenu {
+    position: absolute;
+    top: 40%;
+    display: none;
+    transition: 0.5s;
+    width: 27px;
+    background-color: #000000;
+    border: 1px solid #424242;
+    color: whitesmoke;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 17px;
+
+}
+
+.ReactOption {
+    position: absolute;
+    background-color: #5a5a5ace;
+    border: 2px solid sandybrown;
+    border-radius: 7px;
+    padding: 3px;
+    text-align: start;
+    /* height: 35px; */
+    overflow: overlay;
+    scroll-behavior: smooth;
+    scrollbar-width: 0;
+}
+
+.ReactOption li {
+    padding: 5px;
+    margin: 5px;
+    background-color: #424242;
+    border-radius: 15px;
+    /* transition: 0.5s; */
+}
+
+.ReactOption li i {
+    content: "\f1f8";
+}
+
+.ReactOption li:hover .ReactOption li i {
+    content: '\f829';
+}
+
+.ReactOption li:hover {
+    background-color: #383838;
+    border-radius: 15px;
+}
+
+.reactionOption-right {
+    left: -182px;
+    width: 180px;
+    top: -5px;
+    animation: sideright 0.5s ease-out;
+}
+
+.reactionOption-left {
+    right: -90px;
+    top: -5px;
+    animation: sideleft 0.5s ease-out;
+}
+
+.reaction-right {
+    left: -35px;
+    animation: sideright 0.5s ease-out;
+}
+
+.reaction-left {
+    right: -35px;
+    animation: sideleft 0.5s ease-out;
+}
+
+@keyframes sideright {
+    0% {
+        transform: translateY(5px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+@keyframes sideleft {
+    0% {
+        transform: translateY(-15px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+.emoji-bar {
+    display: none;
+    gap: 2px;
+    padding: 5px 10px;
+    background: white;
+    border-radius: 20px;
+    margin-bottom: 5px;
+    position: absolute;
+}
+
+.msg-right:hover .emoji-bar {
+    display: flex;
+}
+
+.msg-left:hover .emoji-bar {
+    display: flex;
+}
+
+.emoji-left {
+    right: -260px;
+    top: -27px;
+}
+
+.emoji-right {
+    left: -260px;
+    top: -27px;
+}
+
+.emoji-item {
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.emoji-item:hover {
+    transform: scale(1.4);
+    /* Hover કરવા પર મોટું થશે */
+}
+
 /* recevier */
 .msg-left .message {
     background-color: #e4e6eb;
     color: black;
     border-top-left-radius: 0;
+}
+
+.msg-right:hover .reaction-right {
+    display: block;
+}
+
+.msg-left:hover .reaction-left {
+    display: block;
+}
+
+.msg-reaction-badge {
+    display: flex;
+    position: absolute;
+    bottom: -11px;
+    left: 3px;
+    z-index: 9999;
+    background-color: rgb(0, 0, 0);
+    border-radius: 15px;
+    width: fit-content;
+    height: fit-content;
+    text-align: center;
+    padding: 1px;
+    cursor: pointer;
+    color: #ffffff;
+    overflow: visible;
+}
+
+.ReactBy {
+    display: none;
+    color: #ffffff;
+    margin-right: 5px;
+}
+
+.msg-reaction-badge:hover .ReactBy {
+    display: block;
 }
 
 /* sender    */
@@ -371,20 +665,41 @@ body {
 
 @keyframes dots {
     0% {
-        content: '';
-    }
-
-    33% {
         content: '.';
     }
 
-    66% {
+    20% {
         content: '..';
     }
 
-    100% {
+    40% {
         content: '...';
     }
+
+    80% {
+        content: '....';
+    }
+
+    100% {
+        content: '.....';
+    }
+}
+
+/* =============================== Recording-effect ============================== */
+
+.Recording {
+    position: absolute;
+    width: 95px;
+    text-align: start;
+    bottom: 18.5px;
+    right: 152px;
+    background-color: rgb(255, 255, 68);
+    color: black;
+    padding: 5px;
+    border-radius: 10px;
+    animation: dots 1.5s infinite;
+    font-weight: 600;
+    border: 1px solid black;
 }
 
 /* ====================================     LEAVE BUTTON    ===================================== */

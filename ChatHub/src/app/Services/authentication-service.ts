@@ -29,10 +29,6 @@ export class AuthenticationService {
   }
 
   logout() {
-    localStorage.removeItem('logged');
-    localStorage.removeItem('email');
-    localStorage.removeItem('password');
-    localStorage.removeItem('img');
-    localStorage.removeItem('token');
+    localStorage.clear();
   }
 }

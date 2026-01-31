@@ -17,8 +17,12 @@ export class Service {
     return this.http.get('https://localhost:7249/api/Protected/secret', { responseType: 'text' });
   }
 
+  getAllGroups() {
+    return this.http.get('https://localhost:7249/api/Chat/GetAllGroup');
+  }
+
   registeruser(data: FormData) {
-    return this.http.post('https://localhost:7154/CREATE-USERS', data);
+    return this.http.post('https://localhost:7249/api/Chat/ChatCreateUser', data);
   }
 
   uploadfile(data: FormData) {
@@ -34,6 +38,10 @@ export class Service {
   }
 
   uploadRecording(data: FormData) {
-    return this.http.post('https://localhost:7249/UploadRcordingFile', data);
+    return this.http.post('https://localhost:7249/UploadRecordingFile', data);
+  }
+
+  DeleteMessageDBMS(id: number) {
+    return this.http.delete(`https://localhost:7249/api/Chat/MessageDelete/id=${id}`);
   }
 }

@@ -1,9 +1,10 @@
-import { ChangeDetectorRef, Component, ElementRef, HostListener, Sanitizer, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, Sanitizer, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SignalR } from '../Services/signal-r';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Service } from '../Services/service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { timestamp } from 'rxjs';
 
 @Component({
   selector: 'app-chat',
@@ -13,22 +14,15 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 })
 export class Chat {
 
-
   constructor(private signalr: SignalR,
     private cdr: ChangeDetectorRef,
     private route: Router,
     private http: HttpClient,
-    private service: Service, private sanitizer: DomSanitizer
+    private service: Service,
+    private sanitizer: DomSanitizer
   ) { }
 
-  //&===========================  LOCAL VARIABLE  ================================
-
-  // messages: {
-  //   user: string | null,
-  //   text: string,
-  //   time: string,
-  //   image: string | null
-  // }[] = [];
+  //~===========================  LOCAL VARIABLE  ================================
 
   messages: {
     user: string | null;
@@ -38,17 +32,45 @@ export class Chat {
     imageUrl?: string;
     PdfUrl?: SafeResourceUrl | null;
     AudioUrl?: string;
+    RecordUrl?: string | null;
     fileName?: string;
     isPdf?: boolean;
     isAudio?: boolean;
+    isRecord?: boolean;
     size?: string;
     duration?: number;
+    TimeStamp?: any;
+    messageid?: any;
+    reaction?: any;
+    reactby?:any;
+  }[] = [];
+  
+  oldmessages: {
+    reactby?:any;
+    user: any;
+    text: any;
+    image?: any;
+    pdf?: any;
+    audio?: any;
+    time: any;
+    isOld: boolean;
+    messageid: any;
+    reaction?: any;
   }[] = [];
 
+  reactions = [
+    { icon: '👍', name: 'Like' },
+    { icon: '❤️', name: 'Love' },
+    { icon: '😂', name: 'Haha' },
+    { icon: '😮', name: 'Wow' },
+    { icon: '😢', name: 'Sad' },
+    { icon: '🙏', name: 'Pray' }
+  ];
+
   uploadProgress = 0;
+  PopUpValue = false;
   nick: any = null;
   user: any = localStorage.getItem('email');
-  group: any = localStorage.getItem('groupname');
   message: string = "";
   notification: string[] = [];
   img: any = null;
@@ -57,96 +79,40 @@ export class Chat {
   notificationvalue = false;
   membercount: string[] = [];
   ShowOptionvalue: boolean = false;
-
+  userid: any = null;
+  groupid: any = null;
+  group: any = localStorage.getItem('groupname');
 
   @ViewChild('chatBox') chatBox!: ElementRef;
   @ViewChild('msgbox') msgBox!: ElementRef;
 
-
-  //?===========================  ngOnInit  =================================
+  //?===========================  ngOnInit  =====================================================
 
   async ngOnInit() {
+    this.PopUpValue = true;
+
+    if (localStorage.getItem('groupname') == null || undefined) {
+      this.group = localStorage.getItem('newgroupname');
+    }
 
     this.nick = localStorage.getItem('nick');
     this.img = localStorage.getItem("img");
     this.pwd = localStorage.getItem("password");
+    this.userid = localStorage.getItem("userid");
+    this.groupid = localStorage.getItem("groupid");
 
-    await this.signalr.startConnection();
+    //~============== FIRST NEED THIS FOR ALL signal-r and invoke JoinGroup [ON INIT] ============
 
-
-    //&=================================   IMAGE recieve  ==============================
-
-    this.signalr.onFileReceived((user, fileName, fileUrl, filesize) => {
-      const isImage = /\.(png|jpg|jpeg|gif|webp|jfif)$/i.test(fileName);
-      if (isImage) {
-        this.messages.push({
-          user: user,
-          text: '',
-          filename: isImage ? fileName : 'its not jpg/jpeg image.',
-          imageUrl: isImage ? fileUrl : undefined,
-          size: filesize,
-          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        });
-      }
-      this.cdr.detectChanges();
-    });
-
-    // ^===============================    PDF RECIEVE   ===============================
-
-    this.signalr.onPDFRecieve((user, fileName, fileUrl, filesize) => {
-      const isPDF = /\.(pdf)$/i.test(fileName);
-      this.messages.push({
-        user: user,
-        filename: isPDF ? fileName : 'its not jpg/jpeg image.',
-        PdfUrl: isPDF ? this.sanitizer.bypassSecurityTrustResourceUrl(fileUrl) : undefined,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        isPdf: isPDF,
-        size: filesize
-      });
-      this.cdr.detectChanges();
-    });
-
-    //&=================================  AUDIO RECEIVE  ==================================
-
-    this.signalr.onRecieveAudio((user, fileName, fileUrl, filesize) => {
-      const isAUDIO = /\.(mp3|wav|ogg|m4a|mp4|webm)$/i.test(fileName);
-      debugger
-      if (isAUDIO) {
-        this.messages.push({
-          user: user,
-          filename: isAUDIO ? fileName : 'its not jpg/jpeg image.',
-          AudioUrl: isAUDIO ? fileUrl : undefined,
-          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-          isAudio: isAUDIO,
-          size: filesize
-        });
+    await this.signalr.startConnection().then(() => {
+      //* on join user sending data to signal-r and invoke JoinGroup function
+      if (this.groupid != null) {
+        this.signalr.joinGroup(this.group, this.nick, this.groupid);
       } else {
-        alert('Unsupportable File...');
+        this.signalr.joinGroup(this.group, this.nick, "0");
       }
-      this.cdr.detectChanges();
     });
 
-    //&  Recording File Recieve
-    this.signalr.onRecieveRecording((user, fileName, fileUrl, filesize, duration) => {
-      const isRecord = /\.(webm)$/i.test(fileName);
-      debugger
-      if (isRecord) {
-        this.messages.push({
-          user: user,
-          filename: fileName,
-          AudioUrl: fileUrl,
-          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-          isAudio: isRecord,
-          size: filesize,
-          duration: duration
-        });
-      } else {
-        alert('Unsupportable File...');
-      }
-      this.cdr.detectChanges();
-    });
-
-    //&=============================== join  =====================================
+    //~=============================== join  =====================================================
 
     this.signalr.onUserJoined((user, group) => {
       this.notification.push(`${user} Is Joined ${group} Group.`);
@@ -166,7 +132,97 @@ export class Chat {
       this.cdr.detectChanges();
     });
 
-    //&===============================  left  =====================================
+    this.signalr.onChatHistory((history) => {
+
+      this.oldmessages = history.map(h => ({
+        user: h.user,
+        text: h.message,
+        image: h.image,
+        pdf: h.pdf,
+        audio: h.audio,
+        time: h.timestamp,
+        isOld: h.isOld, // આનાથી તમે જૂના મેસેજને અલગ સ્ટાઇલ આપી શકો
+        messageid: h.messageid,
+        reaction: h.reaction
+      }));
+      this.cdr.detectChanges();
+    });
+
+    //~=================================   IMAGE recieve  ========================================
+
+    this.signalr.onFileReceived((user, fileName, fileUrl, filesize) => {
+      const isImage = /\.(png|jpg|jpeg|gif|webp|jfif)$/i.test(fileName);
+      if (isImage) {
+        this.messages.push({
+          user: user,
+          text: '',
+          filename: fileName,
+          imageUrl: fileUrl,
+          size: filesize,
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          TimeStamp: new Date()
+        });
+      }
+      this.cdr.detectChanges();
+    });
+
+    //~===============================    PDF RECIEVE   ===========================================
+
+    this.signalr.onPDFRecieve((user, fileName, fileUrl, filesize) => {
+      const isPDF = /\.(pdf)$/i.test(fileName);
+      this.messages.push({
+        user: user,
+        filename: fileName,
+        PdfUrl: fileUrl,
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        isPdf: isPDF,
+        size: filesize,
+        TimeStamp: new Date()
+      });
+      this.cdr.detectChanges();
+    });
+
+    //~=================================  AUDIO RECEIVE  ==========================================
+
+    this.signalr.onRecieveAudio((user, fileName, fileUrl, filesize) => {
+      const isAUDIO = /\.(mp3|wav|ogg|m4a|mp4|webm)$/i.test(fileName);
+      if (isAUDIO) {
+        this.messages.push({
+          user: user,
+          filename: isAUDIO ? fileName : 'its not jpg/jpeg image.',
+          AudioUrl: isAUDIO ? fileUrl : undefined,
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          isAudio: isAUDIO,
+          size: filesize,
+          TimeStamp: new Date()
+        });
+      } else {
+        alert('Unsupportable File...');
+      }
+      this.cdr.detectChanges();
+    });
+
+    //*  Recording File Recieve
+    this.signalr.onRecieveRecording((user, fileName, fileUrl, filesize, duration) => {
+      const isRecord = /\.(webm)$/i.test(fileName);
+      if (isRecord) {
+        this.messages.push({
+          user: user,
+          filename: fileName,
+          RecordUrl: fileUrl,
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          isRecord: isRecord,
+          size: filesize,
+          duration: duration,
+          TimeStamp: new Date()
+        });
+      } else {
+        alert('Unsupportable File...');
+      }
+      this.cdr.detectChanges();
+    });
+
+    //~===============================  left  ======================================================
 
     this.signalr.onUserLeft((user, group) => {
       this.notification.push(`${user} left ${group}`);
@@ -184,49 +240,73 @@ export class Chat {
         }, 3500);
       }
       this.cdr.detectChanges();
+
+
     });
 
-
-    //&===========================  TYPING LOGIC [ON INIT] =================================
+    //~===========================  TYPING LOGIC [ON INIT] =========================================
 
     this.signalr.onUserTyping((user) => {
       if (user !== this.user) {
         this.typingUser = user;
         this.isTyping = true;
-
         clearTimeout(this.typingTimeout);
 
         this.typingTimeout = setTimeout(() => {
           this.isTyping = false;
           this.typingUser = null;
           this.cdr.detectChanges();
-        }, 1000);
+        }, 1500);
       }
       this.scrollToBottom();
       this.cdr.detectChanges();
     });
 
-    this.signalr.joinGroup(this.group, this.nick);
+    //~===========================  NORMAL TEXT MESSAGE [ON INIT] ==================================
 
-    this.signalr.onGroupMessage((user, msg) => {
+    this.signalr.onGroupMessage((user, msg, messageid) => {
       this.messages.push({
         user: user,
         text: msg,
         filename: msg,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        TimeStamp: new Date(),
+        messageid: messageid
       });
       this.scrollToBottom();
       this.cdr.detectChanges();
     });
+
+    //~===========================  GROUP MEMBER UPDATE [ JOIN / LEFT] ==============================
 
     this.signalr.onGroupMembers((members: string[]) => {
       this.membercount = members;
       this.cdr.detectChanges();
     });
 
+    //~===========================  on reaction recieve callback function  ==========================
+
+    this.signalr.recieveReaction((msgId, emoji, reactuser) => {
+      debugger
+      const msgIndex = this.oldmessages.findIndex(m => m.messageid === msgId);
+      if (msgIndex !== -1) {
+        this.oldmessages[msgIndex].reaction = emoji;
+        this.oldmessages[msgIndex].reactby = reactuser;
+        this.cdr.detectChanges();
+      }
+      const newMsgIndex = this.messages.findIndex(nm => nm.messageid === msgId);
+      if (newMsgIndex !== -1) {
+        this.messages[newMsgIndex].reaction = emoji;
+        this.messages[newMsgIndex].reactby = reactuser;
+        this.cdr.detectChanges();
+      }
+    });
+
+
+    //!   ngOnInit katam-----
   }
 
-  //&===========================  Send button  =================================
+  //~===========================  Send button  ============================================
 
   send() {
     this.message = this.message.trim();
@@ -246,17 +326,23 @@ export class Chat {
     }
   }
 
-  //&===========================  Leave button  =================================
+  //~===========================  Leave button  ===========================================
 
   leave() {
     this.signalr.leaveGroup(this.group, this.nick);
     localStorage.clear();
     this.route.navigate(['/login']);
     this.cdr.detectChanges();
-
   }
 
-  //&===========================  INBOX AUTO REsIZE  =================================
+  SignOut() {
+    this.signalr.SignOut(this.group, this.nick);
+    localStorage.clear();
+    this.route.navigate(['/login']);
+    this.cdr.detectChanges();
+  }
+
+  //~===========================  INBOX AUTO REsIZE  ======================================
 
   scrollToBottom() {
     setTimeout(() => {
@@ -266,7 +352,7 @@ export class Chat {
     }, 50);
   }
 
-  //&===========================  TYPING LOGIC  =================================
+  //~===========================  TYPING LOGIC  ===========================================
 
   isTyping = false;
   typingUser: string | null = null;
@@ -275,15 +361,15 @@ export class Chat {
     this.signalr.sendTyping(this.group, this.nick);
   }
 
-  //&===========================  TEXT BOX [chat input]  ========================
+  //~===========================  TEXT BOX [chat input]  ==================================
 
   autoGrow(event: any) {
     const textarea = event.target;
-    textarea.style.height = 'auto';          // reset
-    textarea.style.height = textarea.scrollHeight + 'px'; // grow
+    textarea.style.height = 'auto';        
+    textarea.style.height = textarea.scrollHeight + 'px'; 
   }
 
-  //&===========================  OPTION BOX  =================================
+  //~===========================  OPTION BOX  =============================================
 
   @ViewChild('optionBox') optionBox!: ElementRef;
 
@@ -303,7 +389,7 @@ export class Chat {
     }
   }
 
-  //&===============================================    PROFILE MENU-BOX  ============================================================
+  //~==================================    PROFILE MENU-BOX  ===============================
   HeaderMenuValue = false;
 
   @ViewChild('ProfileBox') ProfileBox!: ElementRef;
@@ -323,7 +409,7 @@ export class Chat {
     }
   }
 
-  //&===========================  IMAGE UPLOAD  =================================
+  //~===========================  IMAGE UPLOAD  ============================================
 
   @ViewChild('imgfileunput') imgfileunput!: ElementRef;
   openFilePicker() {
@@ -340,14 +426,7 @@ export class Chat {
 
     this.service.uploadfile(data).subscribe({
       next: (res: any) => {
-        console.log(res)
-        this.signalr.sendFileMessage(
-          this.group,
-          this.nick,
-          res.fileName,
-          res.fileUrl,
-          res.filesize
-        );
+        this.signalr.sendFileMessage(this.group, this.nick, res.fileName, res.binaryData, res.filesize);
       },
       error: (err) => {
         console.log('UPLOAD ERROR', err);
@@ -356,7 +435,7 @@ export class Chat {
     event.target.value = '';
   }
 
-  //&================================================  PDF UPLOAD  =======================================================
+  //~================================================  PDF UPLOAD  =========================
   @ViewChild('pdffileinput') pdf!: ElementRef;
 
   openPDFPicker() {
@@ -373,12 +452,11 @@ export class Chat {
 
     this.service.uploadPDF(data).subscribe({
       next: (res: any) => {
-
         this.signalr.sendPDFfile(
           this.group,
           this.nick,
           res.fileName,
-          res.fileUrl,
+          res.fileBytes,
           res.filesize
         );
       },
@@ -389,11 +467,44 @@ export class Chat {
     event.target.value = '';
   }
 
+  downloadBinaryPdf(base64String: string, fileName: string) {
+    try {
+      // ૧. જો સ્ટ્રિંગમાં "data:application/pdf;base64," જેવું હેડર હોય તો તેને કાઢી નાખો
+      const pureBase64 = base64String.includes(',')
+        ? base64String.split(',')[1]
+        : base64String;
+
+      // ૨. Base64 ને ડીકોડ કરો
+      const byteCharacters = atob(pureBase64.trim());
+      const byteNumbers = new Array(byteCharacters.length);
+
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: 'application/pdf' });
+
+      // ૩. ડાઉનલોડ પ્રોસેસ
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName || 'document.pdf';
+      link.click();
+
+      // ક્લીનઅપ
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Decoding failed:", error);
+      alert("ફાઇલ ડીકોડ કરવામાં ભૂલ આવી છે. ડેટા પ્રોપર નથી.");
+    }
+  }
+
   openPdf(url: any) {
     window.open(url, '_blank');
   }
 
-  //&================================================  AUDIO UPLOAD  =======================================================
+  //~================================================  AUDIO UPLOAD  ========================
   @ViewChild('audiofileinput') audiofile!: ElementRef;
 
   openAudioPicker() {
@@ -425,12 +536,14 @@ export class Chat {
     event.target.value = '';
   }
 
-  //~ RECORDING AUDIO MESSAGE
+  //~ RECORDING AUDIO MESSAGE     ======================================
   mediaRecorder!: MediaRecorder;
   audioChunks: Blob[] = [];
   recordStartTime!: number;
+  recordingvalue = false;
 
   async startRecording() {
+    this.recordingvalue = true;
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     this.audioChunks = [];
 
@@ -443,16 +556,18 @@ export class Chat {
 
     this.mediaRecorder.onstop = () => {
       const audioBlob = new Blob(this.audioChunks, { type: 'audio/webm' });
-      const duration = Math.round((Date.now() - this.recordStartTime) / 1000);
+      var duration = Math.round((Date.now() - this.recordStartTime) / 1000);
 
       const file = new File([audioBlob], `voice_${Date.now()}.webm`);
       this.uploadAudio(file, duration);
     };
 
     this.mediaRecorder.start();
+    this.typing();
   }
 
   stopRecording() {
+    this.recordingvalue = false;
     if (this.mediaRecorder && this.mediaRecorder.state !== 'inactive') {
       this.mediaRecorder.stop();
     }
@@ -460,13 +575,12 @@ export class Chat {
 
   uploadAudio(file: File, duration: number) {
     const data = new FormData();
-    data.append('file', file);
+    data.append('file', file, file.name);
     data.append('group', this.group);
     data.append('user', this.nick);
     data.append('duration', duration.toString());
 
     this.service.uploadRecording(data).subscribe((res: any) => {
-      debugger
       this.signalr.sendAudioMessage(
         this.group,
         this.nick,
@@ -478,5 +592,99 @@ export class Chat {
     });
   }
 
+  //~==================================  WARNING BOX  ========================
+
+  popup() {
+    this.PopUpValue = !this.PopUpValue;
+  }
+
+  //~==================================  DATE FUNCTION  [yesterday/Today]   ========================
+  formatChatDate(timestamp: any): string {
+    if (!timestamp) return '';
+
+    const messageDate = new Date(timestamp);
+    const today = new Date();
+
+    const yesterday = new Date();
+    yesterday.setDate(today.getDate() - 1);
+
+    // ૧. જો તારીખ આજે હોય
+    if (messageDate.toDateString() === today.toDateString()) {
+      return 'Today';
+    }
+
+    // ૨. જો તારીખ ગઈકાલે હોય
+    if (messageDate.toDateString() === yesterday.toDateString()) {
+      return 'Yesterday';
+    }
+    const day = messageDate.getDate();
+    const month = messageDate.getDate() === 29 && messageDate.getMonth() === 0 ? 1 : messageDate.getMonth() + 1;
+    const year = messageDate.getFullYear();
+
+    return `${day}/${month}/${year}`;
+  }
+
+  isNewDay(currentMsg: any, previousMsg: any): boolean {
+    if (!previousMsg) return true;
+
+    const currentDate = new Date(currentMsg.time).toDateString();
+    const previousDate = new Date(previousMsg.time).toDateString();
+
+    return currentDate !== previousDate;
+  }
+  //~=========================================  REaction   ===================================
+
+  activeMessageId: number | null = null;
+
+  toggleReaction(msgId: number) {
+    if (this.activeMessageId === msgId) {
+      this.activeMessageId = null;
+    } else {
+      this.activeMessageId = msgId;
+    }
+  }
+
+  //~====================================   DELETE MESSAGE  ====================================
+
+  DeleteMessage(msgId: number, index: number, listType: string) {
+    if (confirm("If You Want To Delete Message For All ?")) {
+      this.http.delete(`https://localhost:7249/api/Chat/MessageDelete?id=${msgId}`).subscribe(() => {
+        if (listType === 'old') {
+          this.oldmessages.splice(index, 1);
+        } else {
+          this.messages.splice(index, 1);
+        }
+
+        alert("Message Deleted...");
+        this.activeMessageId = null;
+        this.cdr.detectChanges();
+      });
+    }
+  }
+
+  //~====================================   USERNAME SET [ YOU / Another]  ====================================
+  username?: string;
+  checkusername(displayuser: string) {
+    if (displayuser == this.nick) {
+      this.username = "You";
+    }
+    else {
+      this.username = displayuser;
+    }
+    this.cdr.detectChanges();
+  }
+
+  //~====================================   SET REACTION ON MEssage  ====================================
+
+  sendReaction(msgId: number, emoji: any) {
+    this.signalr.sendReaction(msgId, emoji, this.group, this.nick);
+    this.activeMessageId = null;
+    this.cdr.detectChanges();
+  }
+  
+  removeReaction(msgId: number) {
+    this.signalr.deleteReaction(msgId, '', this.group, '');
+    this.cdr.detectChanges();
+  }
 
 }

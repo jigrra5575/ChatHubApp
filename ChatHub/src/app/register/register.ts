@@ -22,7 +22,8 @@ export class Register {
     Username: new FormControl(''),
     email: new FormControl(''),
     password: new FormControl(''),
-    image: new FormControl('')
+    image: new FormControl(''),
+    groupid : new FormControl('')
   });
 
   get form() {
@@ -39,13 +40,13 @@ export class Register {
 
     const newuser = new FormData();
 
-    newuser.append('Username', this.form.Username.value!);
-    newuser.append('Email', this.form.email.value!);
-    newuser.append('password', this.form.password.value!);
-
+    newuser.append('UserName', this.form.Username.value!);
+    newuser.append('UserEmail', this.form.email.value!);
+    newuser.append('UserPassword', this.form.password.value!);
+    // newuser.append('GroupId', this.form.groupid.value!);
 
     if (this.selectedFile) {
-      newuser.append('file', this.selectedFile);
+      newuser.append('UserImage', this.selectedFile);
     }
 
     this.service.registeruser(newuser).subscribe({

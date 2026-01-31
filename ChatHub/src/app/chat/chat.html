@@ -1,6 +1,6 @@
-<div class="container-fluid h-100 p-0 position-relative">
+<div class="container-fluid h-100 p-0 position-relative" [ngClass]="PopUpValue ? 'NoPointerevent' : 'Pointerevent'">
   <div class="container-fluid  h-100 p-0">
-    <div class="h-100">
+    <div class="h-100 overflow-visible">
       <!-- Profile -->
       <div class="profile d-flex bg-dark text-light justify-content-between">
         <div class="d-flex">
@@ -11,14 +11,11 @@
             <img class="heaaderImage" [src]="defaultimg" height="80px" width="80px" />
             }
           </div>
-
           <div class="d-flex align-self-center flex-column">
             <p class="m-0">{{nick}}</p>
-
             <div class="typing" *ngIf="isTyping">
               {{typingUser}} is typing<span class="dots">...</span>
             </div>
-
           </div>
         </div>
         <div class="d-flex gap-2 me-3">
@@ -49,7 +46,7 @@
                       <td class="text-success"><b>{{pwd}}</b></td>
                     </tr>
                     <tr>
-                      <th>Group Detail</th>
+                      <th>Group Name</th>
                       <td>{{group}}</td>
                     </tr>
                     <tr>
@@ -67,8 +64,10 @@
                   </tbody>
                 </table>
               </div>
-              <div class="text-center mb-2">
-                <button class="btn justify-content-end leavebutton" (click)="leave()">LogOut
+              <div class="text-center mb-2 d-flex justify-content-around">
+                <button class="btn justify-content-end leavebutton" (click)="SignOut()">
+                  <i class="fa-solid fa-power-off"></i></button>
+                <button class="btn justify-content-end leavebutton" (click)="leave()">
                   <i class="fa-solid fa-person-walking-arrow-right "></i></button>
               </div>
             </div>
@@ -76,90 +75,160 @@
         </div>
       </div>
       <div class="ctbox" #chatBox>
+        <!--~ old message -->
+        <ng-container *ngFor="let msg of oldmessages; let i = index">
 
-        <div *ngFor="let msg of messages" [ngClass]="msg.user === nick ? 'msg-right' : 'msg-left'">
+          <!-- center date -->
+          <div class="centerdate-wrapper" *ngIf="isNewDay(msg, oldmessages[i-1])">
+            <div class="centerdate">
+              <p class="">{{ formatChatDate(msg.time) }}</p>
+            </div>
+          </div>
+
+          <div [ngClass]="msg.user === nick ? 'msg-right' : 'msg-left'">
+            <div class="message">
+              <div class="ReactionMenu" [ngClass]="msg.user === nick ? 'reaction-right' : 'reaction-left'">
+                <i class="fa-regular fa-face-smile" (click)="toggleReaction(msg.messageid)"></i>
+                <div class="ReactOption" *ngIf="activeMessageId == msg.messageid"
+                  [ngClass]="msg.user === nick ? 'reactionOption-right' : 'reactionOption-left'">
+                  <ul class="list-unstyled m-0">
+                    <li [ngClass]="msg.user === nick ? 'd-block' : 'd-none'"
+                      (click)="DeleteMessage(msg.messageid, i, 'old')"><i class="fa-solid fa-trash text-danger"></i>
+                      Remove For All</li>
+                    <li><i class="fa-solid fa-circle-info text-warning"></i> info</li>
+                  </ul>
+                </div>
+              </div>
+
+              <p class="nickname" *ngIf="nick == msg.user">You</p>
+              <p class="nickname" *ngIf="nick != msg.user">{{msg.user}}</p>
+
+              <div class="emoji-bar" *ngIf="activeMessageId == msg.messageid" [ngClass]="msg.user === nick ? 'emoji-right' : 'emoji-left'">
+                <span *ngFor="let r of reactions" (click)="sendReaction(msg.messageid, r.icon)" class="emoji-item">
+                  {{ r.icon }}
+                </span>
+              </div>
+
+              <hr class="m-0" height="2px">
+
+              <div class="ImagePreview" *ngIf="msg.image">
+                <img [src]="'data:image/jpeg;base64,' + msg.image" class="img-fluid rounded mb-1"
+                  style="max-width:200px" />
+              </div>
+
+              <p class="m-0 textmsg">{{msg.text}}</p>
+              <sub class="d-flex justify-content-end my-2 sendingtime">{{msg.time | date:'shortTime'}}</sub>
+              <div class="msg-reaction-badge" *ngIf="msg.reaction != null" (click)="removeReaction(msg.messageid)">
+              {{ msg.reaction }}<span class="ReactBy">{{msg.reactby}}</span>
+            </div>
+            </div>
+          </div>
+        </ng-container>
+
+
+        <!--& new message -->
+        <ng-cointainer *ngFor="let msg of messages; let i = index"
+          [ngClass]="msg.user === nick ? 'msg-right' : 'msg-left'">
           <div class="message">
-            <p class="nickname">~{{msg.user}}</p>
+
+            <div class="ReactionMenu" [ngClass]="msg.user === nick ? 'reaction-right' : 'reaction-left'">
+              <i class="fa-regular fa-face-smile" (click)="toggleReaction(msg.messageid)"></i>
+              <div class="ReactOption" *ngIf="activeMessageId == msg.messageid"
+                [ngClass]="msg.user === nick ? 'reactionOption-right' : 'reactionOption-left'">
+                <ul class="list-unstyled m-0">
+                  <li [ngClass]="msg.user === nick ? 'd-block' : 'd-none'"
+                    (click)="DeleteMessage(msg.messageid, i, 'old')"><i class="fa-solid fa-trash text-danger"></i>
+                    Remove</li>
+                  <li><i class="fa-solid fa-circle-info text-warning"></i> info</li>
+                </ul>
+              </div>
+              <!-- <div class="emoji-bar"  *ngIf="activeMessageId == msg.messageid"> 
+              <span *ngFor="let r of reactions" (click)="sendReaction(msg.messageid, r.icon)" class="emoji-item">
+                {{ r.icon }}
+              </span>
+            </div> -->
+            </div>
+
+            <p class="nickname">{{msg.user}}</p>
+
+            <div class="emoji-bar" *ngIf="activeMessageId == msg.messageid">
+              <span *ngFor="let r of reactions" (click)="sendReaction(msg.messageid, r.icon)" class="emoji-item">
+                {{ r.icon }}
+              </span>
+            </div>
+
             <hr class="m-0" height="2px">
-
             <!--& PDF PREVIEW -->
-            <!-- <img *ngIf="msg.isPdf" class="mt-1" src="/pdgview.jfif" width="150" height="100"
-               title="{{msg.filename}}"/> -->
             <div class="pdf-card" *ngIf="msg.isPdf" title="{{msg.filename}}">
-
               <div class="pdf-left">
                 <img src="/pdficon2.png" class="pdf-icon">
               </div>
-
               <div class="pdf-middle">
                 <div class="pdf-name">{{ msg.fileName }}</div>
                 <div class="pdf-info">
                   PDF • {{ msg.size || '—' }}
                 </div>
               </div>
+              <!--& PDF DOWNLOAD -->
               <div class="pdf-right">
                 <div class="fa-2x">
-                  <a class="link p-0 pt-2" *ngIf="msg.isPdf" [href]="msg.PdfUrl" [attr.download]="msg.PdfUrl"
-                    target="_blank" title="{{msg.filename}}">
+                  <a class="link p-0 pt-2" *ngIf="msg.isPdf" [href]="'data:application/pdf;base64,' + msg.PdfUrl"
+                    [attr.download]="msg.filename" target="_blank" title="{{msg.filename}}">
                     <i class="fa-regular fa-circle-down"></i>
                   </a>
                 </div>
               </div>
             </div>
-
-            <!--& PDF DOWNLOAD -->
-            <!-- <a class="link p-0 pt-2" *ngIf="msg.isPdf" [href]="msg.PdfUrl" download target="_blank"
-              title="{{msg.filename}}">
-              <div class="d-flex justify-content-between">
-                <div class="align-self-center">Download</div>
-                <div class="fa-2x"><i class="fa-regular fa-circle-down"></i></div>
-              </div>
-            </a> -->
-
             <!--& IMAGE PREVIEW -->
             <div class="ImagePreview">
-              <img *ngIf="msg.imageUrl" [src]="msg.imageUrl" class="img-fluid rounded mb-1" style="max-width:200px"
-                title="{{msg.imageUrl}}" />
-
+              <img *ngIf="msg.imageUrl" [src]="'data:image/jpeg;base64,' + msg.imageUrl" class="img-fluid rounded mb-1"
+                style="max-width:200px" title="{{msg.imageUrl}}" />
               <!--& IMAGE DOWNLOAD -->
               <div class="DownloadImage">
-                <a *ngIf="msg.imageUrl" [href]="msg.imageUrl" download target="_blank" title="{{msg.filename}}">
+                <a *ngIf="msg.imageUrl" [href]="'data:image/jpeg;base64,' +msg.imageUrl" download target="_blank"
+                  title="{{msg.filename}}">
                   Download&nbsp;<i class="fa-solid fa-download"></i>
                 </a>
               </div>
             </div>
-
             <!--& AUDIO DOWNLOAD -->
             <div class="audio-bubble mt-2" *ngIf="msg.isAudio" title="{{ msg.filename }}">
-              <audio controls preload="metadata">
-                <source [src]="msg.AudioUrl" type="audio/mpeg">
+              <audio controls preload="metadata" loop>
+                <source [src]="'data:audio/mpeg;base64,' + msg.AudioUrl" type="audio/mpeg">
               </audio>
-              <div class="audio-info audioname">
-                <span class="audio-name">{{ msg.size}}&nbsp;{{msg.duration}} second</span>
+              <div class="audio-info audioname" *ngIf="msg.size">
+                <span class="audio-name">{{ msg.size}}</span>
               </div>
             </div>
-
+            <div class="audio-bubble mt-2" *ngIf="msg.isRecord" title="{{ msg.filename }}">
+              <audio controls preload="metadata">
+                <source [src]="'data:audio/mpeg;base64,' + msg.RecordUrl" type="audio/mpeg">
+              </audio>
+              <div class="audio-info audioname" *ngIf="msg.size">
+                <span class="audio-name">{{ msg.size}}</span>
+              </div>
+            </div>
             <!-- & Message-Chat -->
             <p class="m-0 textmsg">{{msg.text}}</p>
             <sub class="d-flex justify-content-end my-2 sendingtime">{{msg.time}}</sub>
+            <div class="msg-reaction-badge" *ngIf="msg.reaction" (click)="removeReaction(msg.messageid)">
+              {{ msg.reaction }}<span class="ReactBy">{{msg.reactby}}</span>
+            </div>
+
           </div>
-          <div *ngIf="uploadProgress > 0" class="progress my-1">
+          <!-- <div *ngIf="uploadProgress > 0" class="progress my-1">
             <div class="progress-bar" role="progressbar" [style.width.%]="uploadProgress">
               {{uploadProgress}}%
             </div>
-          </div>
-
-        </div>
+          </div> -->
+        </ng-cointainer>
 
       </div>
       <div class=" sendingbox m-auto">
         <div class="d-flex justify-content-between">
-
           <div id="uploadFileButton">
-            <!-- <img src="/plus.png" (click)="ShowOptionMenu($event)"> -->
             <i class="fa-sharp fa-solid fa-plus addicon" (click)="ShowOptionMenu($event)"></i>
           </div>
-
           <div id="UploadOption" *ngIf="ShowOptionvalue" #optionBox>
             <ol id="Options">
               <input type="file" #imgfileunput style="display:none" (change)="onFileSelected($event)" />
@@ -179,18 +248,19 @@
                 <span class="icontext">&nbsp;Audio</span>
               </li>
               <li>
-                <i class="fa-solid fa-camera icon"></i>
-                <span class="icontext">&nbsp;Camera</span>
+                <i class="fas fa-newspaper icon"></i>
+                <span class="icontext">&nbsp;----------</span>
               </li>
             </ol>
           </div>
-
-
           <div class="sendingBoxLine">
             <textarea class="form-control chatline" rows="1" [(ngModel)]="message" #msgbox
               (input)="autoGrow($event); typing()" (keydown.enter)="send()" placeholder="Type message"></textarea>
           </div>
           <div class="text-center align-content-center" style="width: 10%;">
+            <div [ngClass]="recordingvalue ? 'd-block' : 'd-none'" class="Recording">
+              Recording<span class="dots"></span>
+            </div>
             <span class="btn mx-1 AudioRecord" (mousedown)="startRecording()" (mouseup)="stopRecording()"
               (mouseleave)="stopRecording()">
               <i class="fa-solid fa-microphone"></i></span>
@@ -205,5 +275,32 @@
 <div class="notification overflow-auto  align-self-center" [ngClass]="notificationvalue ? 'd-block' : 'd-none'">
   <div *ngFor="let ntf of notification" class="p-1">
     <p class="text-success m-0"><i class="fa-solid fa-bell text-danger"></i>{{ntf}}</p>
+  </div>
+</div>
+
+<div class="welcomePopUp" *ngIf="PopUpValue">
+  <div class="messageHeader">
+    <h1><span>Welcome</span> {{nick}} !</h1>
+  </div>
+  <div class="messagebody">
+    <!-- <i class="fa-solid fa-triangle-exclamation"></i> -->
+    <h4> 🛡️ Application Rules & Features</h4>
+    <ol>
+      <li><span>🔐 End-to-End Encryption:</span> તમારી દરેક ચેટ અને ફાઇલ સંપૂર્ણપણે Encrypted<i
+          class="fa-solid fa-lock"></i> છે. તમારા અને તમારા
+        Reciever સિવાય અન્ય કોઈ (અમે પણ નહીં!) તમારા મેસેજ વાંચી શકતા નથી.</li>
+      <li><span>📁 File Upload Limits:</span> તમે એક સમયે વધુમાં વધુ [તમારી લિમિટ, દા.ત. 15MB] સુધીની ફાઇલ અપલોડ કરી શકો
+        છો. આ લિમિટ સિસ્ટમ માટે રાખવામાં આવી છે.</li>
+      <li><span>🚫 Respectful Interaction:</span> ગ્રુપમાં અપશબ્દો કે વાંધાજનક સામગ્રી શેર કરવી સખત મનાઈ છે. શિષ્ટાચાર
+        જાળવવો અનિવાર્ય છે.</li>
+      <li><span>⚡ Supported Formats:</span> અમે Image, PDF, અને Audio Formate(.WAV, .MP3, .M4A) ને સપોર્ટ કરીએ છીએ.
+        વિડિયો ફાઇલ્સ માટે ફાઇલ સાઇઝનું ખાસ ધ્યાન રાખવું.</li>
+      <li><span>🕒 Data Privacy:</span> તમારો ડેટા સેફ છે. જો તમે ચેટ હિસ્ટ્રી ક્લિયર કરશો, તો તે સર્વર પરથી પણ કાયમ
+        માટે દૂર થઈ જશે.
+      </li>
+    </ol>
+  </div>
+  <div class="closebutton">
+    <input type="button" class="btn btn-danger" value="I Understand" (click)="popup()" />
   </div>
 </div>
