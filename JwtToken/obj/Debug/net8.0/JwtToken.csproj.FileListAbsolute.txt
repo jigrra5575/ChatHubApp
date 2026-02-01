@@ -134,3 +134,6 @@ D:\jigar\JWT TOKEN API\JwtToken\obj\Debug\net8.0\refint\JwtToken.dll
 D:\jigar\JWT TOKEN API\JwtToken\obj\Debug\net8.0\JwtToken.pdb
 D:\jigar\JWT TOKEN API\JwtToken\obj\Debug\net8.0\JwtToken.genruntimeconfig.cache
 D:\jigar\JWT TOKEN API\JwtToken\obj\Debug\net8.0\ref\JwtToken.dll
+C:\Users\Jigar\OneDrive\Desktop\31-01 chathub\ChatHubApp\JwtToken\obj\Debug\net8.0\JwtToken.dll
+C:\Users\Jigar\OneDrive\Desktop\31-01 chathub\ChatHubApp\JwtToken\obj\Debug\net8.0\refint\JwtToken.dll
+C:\Users\Jigar\OneDrive\Desktop\31-01 chathub\ChatHubApp\JwtToken\obj\Debug\net8.0\JwtToken.pdb
