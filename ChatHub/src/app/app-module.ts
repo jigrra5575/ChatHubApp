@@ -10,13 +10,15 @@ import { jwtTokenInterceptor } from './Services/jwt-token-interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Register } from './register/register';
 import { CommonModule } from '@angular/common';
+import { HighlightTextPipe } from './Services/highlight-text-pipe';
 
 @NgModule({
   declarations: [
     App,
     Chat,
     Login,
-    Register
+    Register,
+    HighlightTextPipe
   ],
   imports: [
     BrowserModule,

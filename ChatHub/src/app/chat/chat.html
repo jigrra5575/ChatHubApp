@@ -20,7 +20,16 @@
           </div>
         </div>
         <div class="d-flex gap-2 me-3">
-          <div class="p-2 align-self-center"><i class="fa-solid fa-magnifying-glass"></i></div>
+          <div class="d-flex align-items-center">
+            <input type="text" *ngIf="isSearchOpen" [(ngModel)]="searchText" (input)="searchMessages()"
+              placeholder="Search..."
+              class="form-control form-control-sm me-1 shadow-none bg-secondary text-white border-0"
+              style="width: 150px; border-radius: 15px;">
+
+            <div class="p-2 align-self-center cursor-pointer" (click)="toggleSearch()">
+              <i class="fa-solid fa-magnifying-glass" [class.text-warning]="isSearchOpen"></i>
+            </div>
+          </div>
           <div class="p-2 align-self-center Profilebadge" (click)="HeaderMenu($event)" #ProfileBox><i
               class="fa-solid fa-ellipsis-vertical profile3dot"></i>
             <div class="ProfileBox" *ngIf="HeaderMenuValue">
@@ -89,7 +98,7 @@
 
           <div [ngClass]="msg.user === nick ? 'msg-right' : 'msg-left'">
             <div class="message">
-              <div class="ReactionMenu" [ngClass]="msg.user === nick ? 'reaction-right' : 'reaction-left'" >
+              <div class="ReactionMenu" [ngClass]="msg.user === nick ? 'reaction-right' : 'reaction-left'">
                 <i class="fa-regular fa-face-smile" (click)="toggleReaction(msg.messageid)"></i>
                 <div class="ReactOption" *ngIf="activeMessageId == msg.messageid"
                   [ngClass]="msg.user === nick ? 'reactionOption-right' : 'reactionOption-left'">
@@ -110,7 +119,8 @@
 
               <div class="emoji-bar" *ngIf="activeMessageId == msg.messageid"
                 [ngClass]="msg.user === nick ? 'emoji-right' : 'emoji-left'">
-                <span *ngFor="let r of reactions" (click)="sendReaction(msg.messageid, r.icon, msg.text)" class="emoji-item">
+                <span *ngFor="let r of reactions" (click)="sendReaction(msg.messageid, r.icon, msg.text)"
+                  class="emoji-item">
                   {{ r.icon }}
                 </span>
               </div>
@@ -161,9 +171,9 @@
                 </div>
               </div>
 
-              <p class="m-0 textmsg">{{msg.text}}</p>
+              <p class="m-0 textmsg" [innerHTML]="msg.text | highlightText : searchText">{{msg.text| highlightText : searchText}}</p>
               <sub class="d-flex justify-content-end my-2 sendingtime">{{msg.time | date:'shortTime'}}</sub>
-              <div  class="msg-reaction-badge" *ngIf="msg.reaction"  (click)="removeReaction(msg.messageid)">
+              <div class="msg-reaction-badge" *ngIf="msg.reaction" (click)="removeReaction(msg.messageid)">
                 {{ msg.reaction }}<span class="ReactBy">{{msg.reactby}}</span>
               </div>
             </div>
@@ -196,7 +206,8 @@
 
             <div class="emoji-bar" *ngIf="activeMessageId == msg.messageid"
               [ngClass]="msg.user === nick ? 'emoji-right' : 'emoji-left'">
-              <span *ngFor="let r of reactions" (click)="sendReaction(msg.messageid, r.icon, msg.text)" class="emoji-item">
+              <span *ngFor="let r of reactions" (click)="sendReaction(msg.messageid, r.icon, msg.text)"
+                class="emoji-item">
                 {{ r.icon }}
               </span>
             </div>

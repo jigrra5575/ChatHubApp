@@ -1,16 +1,18 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, Sanitizer, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SignalR } from '../Services/signal-r';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Service } from '../Services/service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { timestamp } from 'rxjs';
+import { HighlightTextPipe } from '../Services/highlight-text-pipe';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-chat',
   standalone: false,
   templateUrl: './chat.html',
-  styleUrl: './chat.css',
+  styleUrl: './chat.css'
 })
 export class Chat {
 
@@ -19,7 +21,6 @@ export class Chat {
     private route: Router,
     private http: HttpClient,
     private service: Service,
-    private sanitizer: DomSanitizer
   ) { }
 
   //~===========================  LOCAL VARIABLE  ================================
@@ -90,7 +91,7 @@ export class Chat {
   //?===========================  ngOnInit  =====================================================
 
   async ngOnInit() {
-    this.PopUpValue = true;
+    // this.PopUpValue = true;
 
     if (localStorage.getItem('groupname') == null || undefined) {
       this.group = localStorage.getItem('newgroupname');
@@ -735,5 +736,31 @@ export class Chat {
   closeMessageInfo() {
     this.chatinfovalue = !this.chatinfovalue;
     this.messageInfoArray = [];
+  }
+
+
+
+  searchText: string = '';
+  isSearchOpen: boolean = false;
+  originalOldMessages: any[] = []; // આમાં તમારા બધા જૂના મેસેજ સ્ટોર કરો
+
+  toggleSearch() {
+    this.isSearchOpen = !this.isSearchOpen;
+    if (!this.isSearchOpen) {
+      this.searchText = '';
+    }
+  }
+
+  temparray = this.oldmessages;;
+  searchMessages() {
+    debugger
+    if (!this.searchText) {
+      this.oldmessages = this.temparray;
+    } else {
+      this.originalOldMessages = this.oldmessages;
+      this.oldmessages = this.originalOldMessages.filter(m =>
+        m.text?.toLowerCase().includes(this.searchText.toLowerCase())
+      );
+    }
   }
 }

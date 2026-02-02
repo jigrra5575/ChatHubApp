@@ -93,7 +93,27 @@ body {
     }
 }
 
+/* ====================   css  ============================== */
 
+.search-input {
+    width: 180px;
+    border-radius: 20px;
+    background-color: #333;
+    border: 1px solid #555;
+    color: white;
+    padding: 5px 15px;
+}
+
+.search-input:focus {
+    background-color: #444;
+    box-shadow: 0 0 5px #ffc107;
+    border-color: #ffc107;
+    color: white;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
 
 /* ====================   css  ============================== */
 .headerImage {
