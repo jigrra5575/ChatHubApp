@@ -11,14 +11,16 @@ body {
 /* ====================    WLCOME POPUP BOX  ============================== */
 .NoPointerevent {
     pointer-events: none;
-    opacity: 0.6;
-    backdrop-filter: blur(5px);
-    transition: all 0.3s ease;
+    opacity: 0.2;
+    /* backdrop-filter: blur(15px); */
+    transition: all 0.5s ease;
+    user-select: none;
 }
 
 .Pointerevent {
     pointer-events: auto;
     opacity: 1;
+    user-select: auto;
 }
 
 .welcomePopUp {
@@ -111,13 +113,21 @@ body {
     justify-content: center;
     width: 100%;
     align-self: center;
-
+    cursor: default;
     pointer-events: none;
     margin: 15px 0;
 }
 
 .centerdate {
     pointer-events: auto;
+}
+
+.dateShow {
+    opacity: 1;
+}
+
+.dateHide {
+    opacity: 0;
 }
 
 .centerdate p {
@@ -304,14 +314,15 @@ body {
 
 #UploadOption {
     position: absolute;
-    bottom: 60px;
+    bottom: 70px;
     left: 10px;
-    background: #0000002f;
+    background: #4d4d4d;
     color: white;
     padding: 10px;
     border-radius: 15px;
     animation: fadeUp 1s ease-out;
     width: max-content;
+    z-index: 7878;
 }
 
 #Options {
@@ -480,7 +491,7 @@ body {
 
 .ReactOption {
     position: absolute;
-    background-color: #5a5a5ace;
+    background-color: #5a5a5ae3;
     border: 2px solid sandybrown;
     border-radius: 7px;
     padding: 3px;
@@ -489,6 +500,7 @@ body {
     overflow: overlay;
     scroll-behavior: smooth;
     scrollbar-width: 0;
+    z-index: 9999;
 }
 
 .ReactOption li {
@@ -624,6 +636,7 @@ body {
     width: fit-content;
     height: fit-content;
     text-align: center;
+    justify-content: center;
     padding: 1px;
     cursor: pointer;
     color: #ffffff;
@@ -633,7 +646,7 @@ body {
 .ReactBy {
     display: none;
     color: #ffffff;
-    margin-right: 5px;
+    margin-right: 3px;
 }
 
 .msg-reaction-badge:hover .ReactBy {
@@ -900,4 +913,36 @@ ol {
 
 .pdf-right i:hover {
     color: #218f49;
+}
+
+/* ================================    MEssageINfo ================================================ */
+
+.MessageInfo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    color: rgb(0, 0, 0);
+
+
+    background-color: #6d6d6d;
+    border: 1px solid hsl(0, 0%, 0%);
+    backdrop-filter: blur(10px);
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.MessageInfo h3 {
+    color: sandybrown;
+}
+
+.MessageInfo p {
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #000;
+    width: fit-content;
+    color: white;
 }

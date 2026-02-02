@@ -250,8 +250,8 @@ namespace JwtToken.Hubs
                     SenderName = user,
                     Timestamp = DateTime.Now,
                     UserId = userdetail?.UserId ?? 0,
-                    GroupId = groupdetail.GroupId
-
+                    GroupId = groupdetail.GroupId,
+                    Filesize = filesize
                 };
 
                 db.ChatMessageTable.Add(chatMsg);
@@ -286,7 +286,8 @@ namespace JwtToken.Hubs
                     Timestamp = DateTime.Now,
                     ChatPDF = fileUrl,
                     UserId = userdetail?.UserId ?? 0,
-                    GroupId = groupdetail.GroupId
+                    GroupId = groupdetail.GroupId,
+                    Filesize = filesize
                 };
 
 
@@ -339,7 +340,8 @@ namespace JwtToken.Hubs
                     Timestamp = DateTime.Now,
                     ChatAudio = fileUrl,
                     UserId = userdetail?.UserId ?? 0,
-                    GroupId = groupdetail.GroupId
+                    GroupId = groupdetail.GroupId,
+                    Filesize = filesize
                 };
 
                 db.ChatMessageTable.Add(chatMsg);
@@ -384,7 +386,8 @@ namespace JwtToken.Hubs
                     Timestamp = DateTime.Now,
                     ChatAudio = RecordingUrl,
                     UserId = userdetail?.UserId ?? 0,
-                    GroupId = groupdetail.GroupId
+                    GroupId = groupdetail.GroupId,
+                    Filesize = filesize
                 };
 
                 db.ChatMessageTable.Add(chatMsg);
@@ -406,7 +409,17 @@ namespace JwtToken.Hubs
             var message = await db.ChatMessageTable.FindAsync(msgId);
             if (message != null)
             {
-                message.Reaction = emoji + " : " + reactuser; // મેસેજ પર ઈમોજી અપડેટ કરો
+                if (message.Reaction != null)
+                {
+                    message.Reaction = message.Reaction + "|" + emoji + "-" + reactuser; // મેસેજ પર ઈમોજી અપડેટ કરો
+                }
+                else
+                {
+                    message.Reaction = emoji + "-" + reactuser; // મેસેજ પર ઈમોજી અપડેટ કરો
+
+                }
+
+
                 await db.SaveChangesAsync();
 
                 // બધાને જાણ કરો કે આ મેસેજ પર આ ઈમોજી આવ્યું
@@ -416,12 +429,10 @@ namespace JwtToken.Hubs
         public async Task DeleteReaction(string groupName, int msgId, string emoji, string reactuser)
         {
             var message = await db.ChatMessageTable.FindAsync(msgId);
+            //var filterReaction  = db.ChatMessageTable.FirstOrDefaultAsync(x => x.Reaction != )
             if (message != null)
-
-
-
             {
-                message.Reaction = null; 
+                message.Reaction = null;
                 await db.SaveChangesAsync();
                 // બધાને જાણ કરો કે આ મેસેજ પર આ ઈમોજી આવ્યું
                 await Clients.Group(groupName).SendAsync("UpdateReaction", msgId, emoji, reactuser);

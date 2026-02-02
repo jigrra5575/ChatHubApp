@@ -17,6 +17,7 @@ namespace JwtToken.Models
         public int? UserId{ get; set; }
         public int GroupId{ get; set; }
         public string? SenderName { get; set; }
+        public string? Filesize{ get; set; }
         public DateTime? Timestamp{ get; set; }
     }
 }

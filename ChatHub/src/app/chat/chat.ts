@@ -56,15 +56,16 @@ export class Chat {
     isOld: boolean;
     messageid: any;
     reaction?: any;
+    filesize?: any;
   }[] = [];
 
   reactions = [
-    { icon: '👍', name: 'Like' },
-    { icon: '❤️', name: 'Love' },
-    { icon: '😂', name: 'Haha' },
-    { icon: '😮', name: 'Wow' },
-    { icon: '😢', name: 'Sad' },
-    { icon: '🙏', name: 'Pray' }
+    { icon: '❤️' },
+    { icon: '😂' },
+    { icon: '😮' },
+    { icon: '🔐' },
+    { icon: '🛡️' },
+    { icon: '🔥' },
   ];
 
   uploadProgress = 0;
@@ -143,8 +144,10 @@ export class Chat {
         time: h.timestamp,
         isOld: h.isOld, // આનાથી તમે જૂના મેસેજને અલગ સ્ટાઇલ આપી શકો
         messageid: h.messageid,
-        reaction: h.reaction
+        reaction: h.reaction,
+        filesize: h.FileSize
       }));
+      this.scrollToBottom();
       this.cdr.detectChanges();
     });
 
@@ -371,45 +374,32 @@ export class Chat {
 
   //~===========================  OPTION BOX  =============================================
   HeaderMenuValue = false;
-  
+
   @ViewChild('optionBox') optionBox!: ElementRef;
   @ViewChild('ProfileBox') ProfileBox!: ElementRef;
-  
+
   ShowOptionMenu(event: MouseEvent) {
     event.stopPropagation();
     this.ShowOptionvalue = !this.ShowOptionvalue;
   }
-  
+
   HeaderMenu(event2: MouseEvent) {
     event2.stopPropagation();
     this.HeaderMenuValue = !this.HeaderMenuValue;
   }
-  
+
   @HostListener('document:click', ['$event'])
   clickOutside(event: MouseEvent) {
     //~==================================    OPTION MENU-BOX  ===============================
     if (this.ShowOptionvalue && this.optionBox && !this.optionBox.nativeElement.contains(event.target)) {
       this.ShowOptionvalue = false;
     }
-    
+
     //~==================================    PROFILE MENU-BOX  ===============================
-    if (this.HeaderMenuValue && this.ProfileBox ) {
-      debugger
-      if(!this.ProfileBox.nativeElement.contains(event.target)){
-        this.HeaderMenuValue = false;
-      }
+    if (this.HeaderMenuValue && this.ProfileBox && !this.ProfileBox.nativeElement.contains(event.target)) {
+      this.HeaderMenuValue = false;
     }
-    
-
   }
-
-
-  // @HostListener('document:click', ['$event'])
-  // clickOutside1(event: MouseEvent) {
-  //   if (this.HeaderMenuValue && this.ProfileBox && !this.ProfileBox.nativeElement.contains(event.target)) {
-  //     this.HeaderMenuValue = false;
-  //   }
-  // }
 
   //~===========================  IMAGE UPLOAD  ============================================
 
@@ -610,15 +600,16 @@ export class Chat {
     const yesterday = new Date();
     yesterday.setDate(today.getDate() - 1);
 
-    // ૧. જો તારીખ આજે હોય
+
     if (messageDate.toDateString() === today.toDateString()) {
       return 'Today';
     }
 
-    // ૨. જો તારીખ ગઈકાલે હોય
+
     if (messageDate.toDateString() === yesterday.toDateString()) {
       return 'Yesterday';
     }
+
     const day = messageDate.getDate();
     const month = messageDate.getDate() === 29 && messageDate.getMonth() === 0 ? 1 : messageDate.getMonth() + 1;
     const year = messageDate.getFullYear();
@@ -633,6 +624,20 @@ export class Chat {
     const previousDate = new Date(previousMsg.time).toDateString();
 
     return currentDate !== previousDate;
+  }
+
+  showScrollDate: boolean = false;
+  scrollTimer: any;
+
+  onWindowScroll() {
+    this.showScrollDate = true;
+    // if (this.scrollTimer) {
+    //   clearTimeout(this.scrollTimer);
+    // }
+    setTimeout(() => {
+      this.showScrollDate = false;
+      this.cdr.detectChanges();
+    }, 5000);
   }
   //~=========================================  REaction   ===================================
 
@@ -649,6 +654,7 @@ export class Chat {
   //~====================================   DELETE MESSAGE  ====================================
 
   DeleteMessage(msgId: number, index: number, listType: string) {
+    debugger
     if (confirm("If You Want To Delete Message For All ?")) {
       this.http.delete(`https://localhost:7249/api/Chat/MessageDelete?id=${msgId}`).subscribe(() => {
         if (listType === 'old') {
@@ -678,9 +684,15 @@ export class Chat {
 
   //~====================================   SET REACTION ON MEssage  ====================================
 
-  sendReaction(msgId: number, emoji: any) {
+  sendReaction(msgId: number, emoji: any, text: any) {
     this.signalr.sendReaction(msgId, emoji, this.group, this.nick);
     this.activeMessageId = null;
+    this.notificationvalue = true;
+    this.notification.push(`${this.nick} React ${emoji} On '${text}'.`);
+    setTimeout(() => {
+      this.notification = [];
+      this.notificationvalue = false;
+    }, 3000);
     this.cdr.detectChanges();
   }
 
@@ -689,4 +701,39 @@ export class Chat {
     this.cdr.detectChanges();
   }
 
+  //~====================================   MessageInfo POPUP  ====================================
+
+  chatinfovalue = false;
+  messageInfoArray: {
+    user: any;
+    text?: any;
+    image?: any;
+    pdf?: any;
+    audio?: any;
+    time: any;
+    messageid: any;
+    reaction?: any;
+    reactby?: any;
+  }[] = [];
+
+  MessageInfo(user: any, text: string, time: string, audio: any, image: any, pdf: any, reaction: any, reactby: string, messageid: string) {
+    debugger
+    this.messageInfoArray.push({
+      user: user,
+      text: text,
+      time: time,
+      audio: audio,
+      image: image,
+      pdf: pdf,
+      messageid: messageid,
+      reactby: reactby,
+      reaction: reaction
+    })
+    this.chatinfovalue = !this.chatinfovalue;
+  }
+
+  closeMessageInfo() {
+    this.chatinfovalue = !this.chatinfovalue;
+    this.messageInfoArray = [];
+  }
 }
