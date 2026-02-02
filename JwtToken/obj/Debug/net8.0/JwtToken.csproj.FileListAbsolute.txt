@@ -60,6 +60,8 @@ D:\jigar\JWT TOKEN API\JwtToken\bin\Debug\net8.0\Microsoft.Bcl.Cryptography.dll
 D:\jigar\JWT TOKEN API\JwtToken\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
 D:\jigar\JWT TOKEN API\JwtToken\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
 D:\jigar\JWT TOKEN API\JwtToken\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\jigar\JWT TOKEN API\JwtToken\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\jigar\JWT TOKEN API\JwtToken\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
 D:\jigar\JWT TOKEN API\JwtToken\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
 D:\jigar\JWT TOKEN API\JwtToken\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
 D:\jigar\JWT TOKEN API\JwtToken\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll

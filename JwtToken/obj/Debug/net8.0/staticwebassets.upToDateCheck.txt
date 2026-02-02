@@ -1,1 +1,7 @@
 wwwroot\demo\index.html
+wwwroot\uploads\PDFs\1388ac80-6f10-4abe-a4c8-cfbded731a6a.pdf
+wwwroot\uploads\PDFs\82297be7-5966-4d8a-8540-b09aff285b28.pdf
+wwwroot\uploads\PDFs\8860bfb5-a1d8-49af-888a-62094bdec099.pdf
+wwwroot\uploads\PDFs\f1253ecb-56af-42c8-a243-e3bcf6edd11f.pdf
+wwwroot\uploads\PDFs\f7687d46-2232-402a-8307-814a8e61ff2a.pdf
+wwwroot\uploads\Recordings\c45679ec-038e-4023-8396-281dd2571083.webm

@@ -3,6 +3,7 @@ using JwtToken.database;
 using JwtToken.Hubs;
 using JwtToken.repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 
 using Microsoft.IdentityModel.Tokens;
@@ -14,6 +15,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddDbContext<userdb>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = long.MaxValue;
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
@@ -58,6 +69,8 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<IRepository, Repository>();
+
+
 
 builder.Services.AddSwaggerGen(options =>
 {
@@ -106,11 +119,13 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<userdb>();
-//builder.Services.AddDbContext<userdb>(options =>
-//{
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("MyConnectionString"));
-//});
-builder.Services.AddSignalR();
+
+
+
+//builder.Services.AddSignalR();
+builder.Services.AddSignalR(options => {
+    options.MaximumReceiveMessageSize = 1024 * 1024 * 15; // 10 MB સુધી વધારી શકાય
+});
 
 var app = builder.Build();
 

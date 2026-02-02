@@ -8,3 +8,6 @@ dotnet_diagnostic.CS8603.severity = silent
 
 # ASP0019: Suggest using IHeaderDictionary.Append or the indexer
 dotnet_diagnostic.ASP0019.severity = silent
+
+# CS8634: The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'class' constraint.
+dotnet_diagnostic.CS8634.severity = silent

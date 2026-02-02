@@ -3,11 +3,47 @@
   "WorkspaceRootPath": "D:\\jigar\\JWT TOKEN API\\JwtToken\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{4554AF6D-FAD6-4E74-BA7D-5BCC45412A3F}|JwtToken.csproj|d:\\jigar\\jwt token api\\jwttoken\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{4554AF6D-FAD6-4E74-BA7D-5BCC45412A3F}|JwtToken.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{4554AF6D-FAD6-4E74-BA7D-5BCC45412A3F}|JwtToken.csproj|d:\\jigar\\jwt token api\\jwttoken\\hubs\\chathub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4554AF6D-FAD6-4E74-BA7D-5BCC45412A3F}|JwtToken.csproj|solutionrelative:hubs\\chathub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/DESKTOP_ULCQKM6_SQLEXPRESS/dapperapi/True/SqlTable/dbo.depperusers.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\MAHADEV\\AppData\\Local\\Temp\\4vmcut1j..sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4554AF6D-FAD6-4E74-BA7D-5BCC45412A3F}|JwtToken.csproj|d:\\jigar\\jwt token api\\jwttoken\\models\\chatmessagetable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4554AF6D-FAD6-4E74-BA7D-5BCC45412A3F}|JwtToken.csproj|solutionrelative:models\\chatmessagetable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4554AF6D-FAD6-4E74-BA7D-5BCC45412A3F}|JwtToken.csproj|d:\\jigar\\jwt token api\\jwttoken\\repository\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4554AF6D-FAD6-4E74-BA7D-5BCC45412A3F}|JwtToken.csproj|solutionrelative:repository\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4554AF6D-FAD6-4E74-BA7D-5BCC45412A3F}|JwtToken.csproj|d:\\jigar\\jwt token api\\jwttoken\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4554AF6D-FAD6-4E74-BA7D-5BCC45412A3F}|JwtToken.csproj|solutionrelative:controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4554AF6D-FAD6-4E74-BA7D-5BCC45412A3F}|JwtToken.csproj|d:\\jigar\\jwt token api\\jwttoken\\repository\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4554AF6D-FAD6-4E74-BA7D-5BCC45412A3F}|JwtToken.csproj|solutionrelative:repository\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4554AF6D-FAD6-4E74-BA7D-5BCC45412A3F}|JwtToken.csproj|d:\\jigar\\jwt token api\\jwttoken\\controllers\\uploadcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4554AF6D-FAD6-4E74-BA7D-5BCC45412A3F}|JwtToken.csproj|solutionrelative:controllers\\uploadcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4554AF6D-FAD6-4E74-BA7D-5BCC45412A3F}|JwtToken.csproj|d:\\jigar\\jwt token api\\jwttoken\\modelsupload\\chatusercreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4554AF6D-FAD6-4E74-BA7D-5BCC45412A3F}|JwtToken.csproj|solutionrelative:modelsupload\\chatusercreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4554AF6D-FAD6-4E74-BA7D-5BCC45412A3F}|JwtToken.csproj|d:\\jigar\\jwt token api\\jwttoken\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4554AF6D-FAD6-4E74-BA7D-5BCC45412A3F}|JwtToken.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4554AF6D-FAD6-4E74-BA7D-5BCC45412A3F}|JwtToken.csproj|d:\\jigar\\jwt token api\\jwttoken\\database\\userdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4554AF6D-FAD6-4E74-BA7D-5BCC45412A3F}|JwtToken.csproj|solutionrelative:database\\userdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -16,21 +52,34 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "DockedWidth": 533,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "ChatHub.cs",
               "DocumentMoniker": "D:\\jigar\\JWT TOKEN API\\JwtToken\\Hubs\\ChatHub.cs",
               "RelativeDocumentMoniker": "Hubs\\ChatHub.cs",
               "ToolTip": "D:\\jigar\\JWT TOKEN API\\JwtToken\\Hubs\\ChatHub.cs",
               "RelativeToolTip": "Hubs\\ChatHub.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAA3wBgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAOwAAAAAAAAAAAAcwKUBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-24T06:34:12.423Z",
+              "WhenOpened": "2026-01-27T07:26:23.963Z",
               "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\jigar\\JWT TOKEN API\\JwtToken\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "D:\\jigar\\JWT TOKEN API\\JwtToken\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-01-31T04:58:44.594Z",
               "EditorCaption": ""
             },
             {
@@ -39,12 +88,108 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "dbo.depperusers.sql",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/DESKTOP_ULCQKM6_SQLEXPRESS/dapperapi/True/SqlTable/dbo.depperusers.sql",
-              "ToolTip": "ViewDataWindow_MSSQL__/DESKTOP_ULCQKM6_SQLEXPRESS/dapperapi/True/SqlTable/dbo.depperusers.sql",
+              "DocumentIndex": 3,
+              "Title": "ChatMessageTable.cs",
+              "DocumentMoniker": "D:\\jigar\\JWT TOKEN API\\JwtToken\\Models\\ChatMessageTable.cs",
+              "RelativeDocumentMoniker": "Models\\ChatMessageTable.cs",
+              "ToolTip": "D:\\jigar\\JWT TOKEN API\\JwtToken\\Models\\ChatMessageTable.cs",
+              "RelativeToolTip": "Models\\ChatMessageTable.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwwAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-30T09:37:18.804Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "4vmcut1j..sql",
+              "DocumentMoniker": "C:\\Users\\MAHADEV\\AppData\\Local\\Temp\\4vmcut1j..sql",
+              "ToolTip": "C:\\Users\\MAHADEV\\AppData\\Local\\Temp\\4vmcut1j..sql",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-01-13T08:29:45.71Z"
+              "WhenOpened": "2026-01-30T09:36:20.629Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "UploadController.cs",
+              "DocumentMoniker": "D:\\jigar\\JWT TOKEN API\\JwtToken\\Controllers\\UploadController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UploadController.cs",
+              "ToolTip": "D:\\jigar\\JWT TOKEN API\\JwtToken\\Controllers\\UploadController.cs",
+              "RelativeToolTip": "Controllers\\UploadController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAL0AAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T12:22:44.446Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "userdb.cs",
+              "DocumentMoniker": "D:\\jigar\\JWT TOKEN API\\JwtToken\\database\\userdb.cs",
+              "RelativeDocumentMoniker": "database\\userdb.cs",
+              "ToolTip": "D:\\jigar\\JWT TOKEN API\\JwtToken\\database\\userdb.cs",
+              "RelativeToolTip": "database\\userdb.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAwBcAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T12:15:14.628Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ChatUserCreate.cs",
+              "DocumentMoniker": "D:\\jigar\\JWT TOKEN API\\JwtToken\\ModelsUpload\\ChatUserCreate.cs",
+              "RelativeDocumentMoniker": "ModelsUpload\\ChatUserCreate.cs",
+              "ToolTip": "D:\\jigar\\JWT TOKEN API\\JwtToken\\ModelsUpload\\ChatUserCreate.cs",
+              "RelativeToolTip": "ModelsUpload\\ChatUserCreate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T12:15:10.464Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IRepository.cs",
+              "DocumentMoniker": "D:\\jigar\\JWT TOKEN API\\JwtToken\\repository\\IRepository.cs",
+              "RelativeDocumentMoniker": "repository\\IRepository.cs",
+              "ToolTip": "D:\\jigar\\JWT TOKEN API\\JwtToken\\repository\\IRepository.cs",
+              "RelativeToolTip": "repository\\IRepository.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAIAzwBYAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T07:27:57.54Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\jigar\\JWT TOKEN API\\JwtToken\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\jigar\\JWT TOKEN API\\JwtToken\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAGcAAAAAAAAAAAAuwH4AAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T09:19:16.403Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Repository.cs",
+              "DocumentMoniker": "D:\\jigar\\JWT TOKEN API\\JwtToken\\repository\\Repository.cs",
+              "RelativeDocumentMoniker": "repository\\Repository.cs",
+              "ToolTip": "D:\\jigar\\JWT TOKEN API\\JwtToken\\repository\\Repository.cs",
+              "RelativeToolTip": "repository\\Repository.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAwJMAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T07:28:04.936Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ChatController.cs",
+              "DocumentMoniker": "D:\\jigar\\JWT TOKEN API\\JwtToken\\Controllers\\ChatController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ChatController.cs",
+              "ToolTip": "D:\\jigar\\JWT TOKEN API\\JwtToken\\Controllers\\ChatController.cs",
+              "RelativeToolTip": "Controllers\\ChatController.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAAAxwEgAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T06:22:32.312Z"
             }
           ]
         }

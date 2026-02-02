@@ -16,9 +16,9 @@ namespace JwtToken.Controllers
         private readonly IConfiguration _config;
         private readonly IRepository repository;
 
-        public AuthController(IConfiguration config , IRepository repository)
+        public AuthController(IConfiguration config, IRepository repository)
         {
-             _config = config;
+            _config = config;
             this.repository = repository;
         }
 
@@ -71,7 +71,7 @@ namespace JwtToken.Controllers
 
         //    return new JwtSecurityTokenHandler().WriteToken(token);
         //}
-        
+
         private object GenerateJwtToken(string userName)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JwtSettings:key"]!));
@@ -99,22 +99,9 @@ namespace JwtToken.Controllers
 
 
         [HttpPost("login")]
-        public async  Task<IActionResult> Login([FromBody] LoginRequest req)
+        public async Task<IActionResult> Login([FromBody] LoginRequest req)
         {
-            //if(IsValidUserCredentials(req.Username,req.Password,out var userId))
-            //{
-            //    var token = GenerateJwtToken(req.Username, userId);
-            //    return Ok(new { token });
-            //}
-
-            //    if(req.UserName == "jigrra" && req.Password == "jigar@123")
-            //    {
-            //        var tockenString = GenerateJwtToken(req.UserName);
-            //        return Ok(new { token = tockenString });
-            //    }
-            //    return Unauthorized(new { message = "Invalid credentials" });
-
-            var user = await repository.CheckUserLogin(req.UserName, req.Password , req.Userimage , req.UserName);
+            var user = await repository.CheckUserLogin(req.UserName, req.Password, req.Userimage, req.UserName);
 
             if (user == null)
                 return Unauthorized(new { message = "Invalid credentials" });
@@ -122,8 +109,8 @@ namespace JwtToken.Controllers
             var token = GenerateJwtToken(user.UserName);
             var img = user.Userimage;
             var username = user.UserName;
-
-            return Ok(new { token , img, username});
+            var userId = user.UserId;
+            return Ok(new { userId, token, img, username });
 
         }
     }
