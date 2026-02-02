@@ -1,0 +1,150 @@
+
+CREATE TABLE [dbo].[GroupNameTable] (
+    [GroupId]   INT            IDENTITY (1, 1) NOT NULL,
+    [GroupName] NVARCHAR (255) NOT NULL,
+    CONSTRAINT [PK_GroupNameTable] PRIMARY KEY CLUSTERED ([GroupId] ASC)
+);
+
+
+
+
+
+CREATE TABLE [dbo].[ChatMembers] (
+    [UserId]       INT            IDENTITY (1, 1) NOT NULL,
+    [UserName]     NVARCHAR (50)  NULL,
+    [UserEmail]    NVARCHAR (255) NULL,
+    [UserPassword] NVARCHAR (255) NULL,
+    [GroupId]      INT            NULL,
+    [UserImage]    NVARCHAR (MAX) NULL,
+    CONSTRAINT [PK_Table] PRIMARY KEY CLUSTERED ([UserId] ASC),
+    CONSTRAINT [FK_ChatMembers_GroupNameTable] FOREIGN KEY ([GroupId]) REFERENCES [dbo].[GroupNameTable] ([GroupId])
+);
+
+
+
+
+CREATE TABLE [dbo].[ChatMessageTable] (
+    [ChatId]      INT             IDENTITY (1, 1) NOT NULL,
+    [ChatMessage] NVARCHAR (MAX)  NULL,
+    [ChatImage]   VARBINARY (MAX) NULL,
+    [ChatAudio]   VARBINARY (MAX) NULL,
+    [ChatPDF]     VARBINARY (MAX) NULL,
+    [UserId]      INT             NOT NULL,
+    [SenderName]  NVARCHAR (MAX)  NULL,
+    [Timestamp]   DATETIME        NULL,
+    [GroupId]     INT             NULL,
+    [Reaction]    NVARCHAR (50)   NULL,
+    CONSTRAINT [PK_ChatMessageTable] PRIMARY KEY CLUSTERED ([ChatId] ASC),
+    CONSTRAINT [FK_ChatMessageTable_GroupNameTable] FOREIGN KEY ([GroupId]) REFERENCES [dbo].[GroupNameTable] ([GroupId]),
+    CONSTRAINT [FK_ChatMessageTable_ChatMembers] FOREIGN KEY ([UserId]) REFERENCES [dbo].[ChatMembers] ([UserId])
+);
+
+
+===================================================================================================================================================
+
+
+CREATE PROCEDURE [dbo].[sp_ChatCreateUser]
+(
+    @Username   VARCHAR(250),
+    @UserEmail      VARCHAR(250),
+    @UserPassword   VARCHAR(50),
+    @UserImage  NVARCHAR(MAX)
+)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- 🔴 User already exists check
+    IF EXISTS (
+        SELECT 1
+        FROM ChatMembers
+        WHERE  UserEmail = @UserEmail
+           OR UserName = @Username
+    )
+    BEGIN
+        SELECT 'USER_ALREADY_EXISTS' AS Result;
+        RETURN;
+    END
+
+    -- ✅ Insert new user
+    INSERT INTO ChatMembers
+    (
+        UserName,
+        UserEmail,
+        UserPassword,
+        Userimage
+    )
+    VALUES
+    (
+        @Username,
+        @UserEmail,
+        @UserPassword,
+        @UserImage
+    );
+
+    -- ✅ Success response
+    SELECT 'SUCCESS' AS Result;
+END
+
+
+
+CREATE PROCEDURE [dbo].[sp_CheckUserLogin]
+	@Email nvarchar(max),
+	@Password nvarchar(max)
+AS
+BEGIN
+	SELECT * FROM ChatMembers WHERE  UserEmail = @Email AND UserPassword= @Password;
+END
+
+
+
+CREATE PROCEDURE sp_CreateGroup
+	@GroupName nvarchar(255)
+AS
+BEGIN
+	INSERT INTO GroupNameTable (GroupName) VALUES (@GroupName);
+END
+
+
+
+CREATE PROCEDURE sp_GetAllChatUser
+AS
+BEGIN
+   	select 
+		m.UserId,
+		m.UserName,
+		m.UserEmail,
+		m.UserPassword,
+		g.GroupId,
+		g.GroupName,
+		m.UserImage
+		from ChatMembers m 
+		Inner join GroupNameTable g
+ON m.GroupId= g.GroupId;
+END
+
+
+CREATE PROCEDURE sp_RemoveGroup
+	@GroupName nvarchar(255)
+AS
+BEGIN
+	DELETE FROM GroupNameTable WHERE GroupName =  @GroupName;
+END
+
+
+
+CREATE PROCEDURE[dbo].[sp_RemoveUser] 
+	@userId int
+AS
+BEGIN
+	DELETE FROM ChatMembers WHERE  UserId = @userId;
+END
+
+
+
+
+
+
+
+
+
