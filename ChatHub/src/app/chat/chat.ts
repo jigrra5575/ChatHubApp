@@ -42,11 +42,11 @@ export class Chat {
     TimeStamp?: any;
     messageid?: any;
     reaction?: any;
-    reactby?:any;
+    reactby?: any;
   }[] = [];
-  
+
   oldmessages: {
-    reactby?:any;
+    reactby?: any;
     user: any;
     text: any;
     image?: any;
@@ -365,49 +365,51 @@ export class Chat {
 
   autoGrow(event: any) {
     const textarea = event.target;
-    textarea.style.height = 'auto';        
-    textarea.style.height = textarea.scrollHeight + 'px'; 
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
   }
 
   //~===========================  OPTION BOX  =============================================
-
+  HeaderMenuValue = false;
+  
   @ViewChild('optionBox') optionBox!: ElementRef;
-
+  @ViewChild('ProfileBox') ProfileBox!: ElementRef;
+  
   ShowOptionMenu(event: MouseEvent) {
     event.stopPropagation();
     this.ShowOptionvalue = !this.ShowOptionvalue;
   }
-
-  @HostListener('document:click', ['$event'])
-  clickOutside(event: MouseEvent) {
-    if (
-      this.ShowOptionvalue &&
-      this.optionBox &&
-      !this.optionBox.nativeElement.contains(event.target)
-    ) {
-      this.ShowOptionvalue = false;
-    }
-  }
-
-  //~==================================    PROFILE MENU-BOX  ===============================
-  HeaderMenuValue = false;
-
-  @ViewChild('ProfileBox') ProfileBox!: ElementRef;
-
+  
   HeaderMenu(event2: MouseEvent) {
     event2.stopPropagation();
     this.HeaderMenuValue = !this.HeaderMenuValue;
   }
-  // @HostListener('document:click', ['$event'])
-  clickOutside1(event: MouseEvent) {
-    if (
-      this.HeaderMenuValue &&
-      this.ProfileBox &&
-      !this.ProfileBox.nativeElement.contains(event.target)
-    ) {
-      this.HeaderMenuValue = false;
+  
+  @HostListener('document:click', ['$event'])
+  clickOutside(event: MouseEvent) {
+    //~==================================    OPTION MENU-BOX  ===============================
+    if (this.ShowOptionvalue && this.optionBox && !this.optionBox.nativeElement.contains(event.target)) {
+      this.ShowOptionvalue = false;
     }
+    
+    //~==================================    PROFILE MENU-BOX  ===============================
+    if (this.HeaderMenuValue && this.ProfileBox ) {
+      debugger
+      if(!this.ProfileBox.nativeElement.contains(event.target)){
+        this.HeaderMenuValue = false;
+      }
+    }
+    
+
   }
+
+
+  // @HostListener('document:click', ['$event'])
+  // clickOutside1(event: MouseEvent) {
+  //   if (this.HeaderMenuValue && this.ProfileBox && !this.ProfileBox.nativeElement.contains(event.target)) {
+  //     this.HeaderMenuValue = false;
+  //   }
+  // }
 
   //~===========================  IMAGE UPLOAD  ============================================
 
@@ -681,7 +683,7 @@ export class Chat {
     this.activeMessageId = null;
     this.cdr.detectChanges();
   }
-  
+
   removeReaction(msgId: number) {
     this.signalr.deleteReaction(msgId, '', this.group, '');
     this.cdr.detectChanges();
