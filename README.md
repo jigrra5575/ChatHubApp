@@ -21,6 +21,7 @@ A real-time multi-user group chat platform using ASP.NET Core SignalR with typin
 
   </p>
 
+
 <h2>🌟 Project Overview</h2>
 📷 Application Screens Overview:<br><br>
 1️⃣ Login Screen:<br>
@@ -86,12 +87,13 @@ Message cards with rounded design
 <h2 id='screenshots'>🖼️ Application Screenshots<a name="screenshots"></a></h2>
 <p>1️⃣ Login Page 
   <br>
-Modern left-image + right-form design
+Modern  right-form design [ With Animation ]
 </p>
-<img width="1430" height="861" alt="login  page" src="https://github.com/user-attachments/assets/65395a64-d6d5-40f0-ab62-81c2f3244e85" /><br>
+<img width="1429" height="821" alt="new login page ss" src="https://github.com/user-attachments/assets/76d14f15-3c46-467f-a87c-ecf0ac330a6c" />
+<br>
 <p>After Successfull Login :&nbsp;[<small>Redirect To Chating Page...</small>]</p>
 <p>📷 Chat Page:</p>
-<img width="1439" height="821" alt="success login" src="https://github.com/user-attachments/assets/9da5673b-3c28-4293-af05-482ea9f7c5f4" />
+<img width="1435" height="763" alt="chat page new" src="https://github.com/user-attachments/assets/6ba4bb9b-6a26-492f-82e9-ee5f85d2ea40" />
 <p>2️⃣ Main Chat Screen
 
 • Sender Message UI</p>
@@ -100,26 +102,41 @@ Modern left-image + right-form design
 <p>• Receiver Message UI</p>
 
 <img width="249" height="323" alt="reciever" src="https://github.com/user-attachments/assets/618d820f-b1c4-4a86-b6b2-27f4fcf875f7" />
-<p>• Full Chat Window</p>
+<p>• Full Chat Window [ With Live Date ]</p>
 <br>
-<img width="1439" height="771" alt="chating ss" src="https://github.com/user-attachments/assets/a232a148-7c59-4803-815f-48dff1213509" />
+<img width="1432" height="701" alt="live date formate" src="https://github.com/user-attachments/assets/ee01269a-23a6-4099-8904-3f3a67470511" />
 <br>
-<img width="1439" height="769" alt="chating ss2" src="https://github.com/user-attachments/assets/dd398394-3825-4689-a4ee-a07b6841474d" />
-<br>
-<img width="1431" height="805" alt="chating ss3" src="https://github.com/user-attachments/assets/514c08ca-bd88-4700-9869-7425de1e029a" />
+
 
 <p>3️⃣ 📷Profile Popup<br>
-Shows user info, password, email, group details</p>
-<img width="1432" height="723" alt="Screenshot 2026-01-19 110217" src="https://github.com/user-attachments/assets/25bb7843-cf8e-490c-8e87-de238f80db7b" />
+Shows:<br>
+  <ol>
+    <li>User Info</li>
+    <li>Password</li>
+    <li>Email</li>
+    <li>Group-Details</li>    
+    <li>Group Members Count [ Live }</li>
+  </ol>
+  </p>
+<img width="336" height="504" alt="p-box" src="https://github.com/user-attachments/assets/569bbf3f-b300-4391-b2eb-9e66667c59d3" />
 
-<p>4️⃣ Group Members Count<br>
-Shows how many members are currently active in the chat</p>
-<img width="310" height="434" alt="count mmember" src="https://github.com/user-attachments/assets/6ab8732d-5d27-4631-86f7-6f97b194c4a7" />
-
-
-<p>• Notification Popup</p>
+<p>4️⃣ Notification Popup</p>
 On Joined User or Left The User [With Group Name] <br><br>
 <img width="973" height="136" alt="notification" src="https://github.com/user-attachments/assets/38ae1a22-fed8-4871-8bb8-faeb69f3ad6b" />
+
+<p>•  Reaction Option</p>
+You Can React On Messages Or DELETE For All <br><br>
+<img width="616" height="209" alt="resction box" src="https://github.com/user-attachments/assets/685a0827-c366-499e-a04d-8e97f3e26963" /><br>
+<p>• Reacton Notification</p>
+<img width="339" height="62" alt="react notification" src="https://github.com/user-attachments/assets/e0a6747e-7c93-4370-b76f-360930fd26f0" /><br>
+<p>• Searching Feachers</p>
+<img width="1439" height="773" alt="searching" src="https://github.com/user-attachments/assets/a8e1ade5-6d64-4dbb-9d62-163643a46b9d" /><br>
+<p>• Typing Indicator</p>
+<img width="717" height="50" alt="typing idicator" src="https://github.com/user-attachments/assets/dec34432-81bf-4a8e-b926-2fb032c655ac" /><br>
+<p>• File Upload Option</p>
+<img width="1433" height="769" alt="upload option" src="https://github.com/user-attachments/assets/0f4cfac8-0ecf-480b-8c17-68f6867b301c" /><br>
+<p>• Record Your Voice And Send Voice</p>
+<img width="1434" height="770" alt="sending recording" src="https://github.com/user-attachments/assets/934c854a-7cc2-45d7-85a6-24c3c82b92f1" /><br>
 
 <hr>
 <h2>🏗️ Tech Stack:</h2>
@@ -139,7 +156,7 @@ Dependency Injection<br>
 <img width="333" height="42" alt="vs code htttp start" src="https://github.com/user-attachments/assets/692b1926-72da-4f8a-90ec-4ec2dfc96782" /><br>
 Start here click to 'https'
 <h2>The API starts on:</h2>
-https://localhost:7020
+https://localhost:7020 [ Backend ]
 <hr>
 <h2>🟧 Frontend (Angular)</h2>
 npm install<br>
