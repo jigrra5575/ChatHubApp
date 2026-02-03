@@ -17,6 +17,13 @@
             <div class="typing" *ngIf="isTyping">
               {{typingUser}} is typing<span class="dots">...</span>
             </div>
+            <div class="ActiveUser" *ngIf="!isTyping">
+              @for (m of membercount; track $index) {
+              <span class="BlinkColor">
+                <span class="text-uppercase"><span *ngIf="$index > 0">, </span>{{m === nick ? 'You' : m}}</span>
+              </span>
+              }
+            </div>
           </div>
         </div>
         <div class="d-flex gap-2 me-3">
@@ -30,8 +37,9 @@
               <i class="fa-solid fa-magnifying-glass" [class.text-warning]="isSearchOpen"></i>
             </div>
           </div>
-          <div class="p-2 align-self-center Profilebadge" (click)="HeaderMenu($event)" #ProfileBox><i
-              class="fa-solid fa-ellipsis-vertical profile3dot"></i>
+          <div class="p-2 align-self-center Profilebadge" #ProfileBox>
+            <i class="fa-solid  profile3dot" [ngClass]="HeaderMenuValue? 'fa-ellipsis' : 'fa-ellipsis-vertical'"
+              (click)="HeaderMenu()"></i>
             <div class="ProfileBox" *ngIf="HeaderMenuValue">
               <div class="d-flex justify-content-center">
                 @if (img != null && img != "") {
@@ -53,10 +61,17 @@
                     </tr>
                     <tr>
                       <th>Password</th>
-                      <td class="text-success"><b>{{pwd}}</b></td>
+                      <td class="passwordField">
+                        <input [type]="isPasswordVisible ? 'text' : 'password'"
+                          [value]="pwd" class="form-control" readonly disabled/>
+
+                        <span class="toggleeye" (click)="isPasswordVisible = !isPasswordVisible">
+                          <i class="fa-solid" [ngClass]="isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
+                        </span>
+                      </td>
                     </tr>
                     <tr>
-                      <th>Group Name</th>
+                      <th>GroupName</th>
                       <td>{{group}}</td>
                     </tr>
                     <tr>
@@ -65,7 +80,7 @@
                         <ol>
                           @for (m of membercount; track $index) {
                           <li>
-                            <b>{{m}}<br></b>
+                            <b>{{m === nick ? 'You' : m}}<br></b>
                           </li>
                           }
                         </ol>
@@ -171,7 +186,8 @@
                 </div>
               </div>
 
-              <p class="m-0 textmsg" [innerHTML]="msg.text | highlightText : searchText">{{msg.text| highlightText : searchText}}</p>
+              <p class="m-0 textmsg" [innerHTML]="msg.text | highlightText : searchText">{{msg.text| highlightText :
+                searchText}}</p>
               <sub class="d-flex justify-content-end my-2 sendingtime">{{msg.time | date:'shortTime'}}</sub>
               <div class="msg-reaction-badge" *ngIf="msg.reaction" (click)="removeReaction(msg.messageid)">
                 {{ msg.reaction }}<span class="ReactBy">{{msg.reactby}}</span>

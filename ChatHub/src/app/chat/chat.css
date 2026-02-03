@@ -17,6 +17,12 @@ body {
     user-select: none;
 }
 
+.Noevent {
+    pointer-events: none;
+    /* backdrop-filter: blur(15px); */
+    transition: all 0.5s ease;
+}
+
 .Pointerevent {
     pointer-events: auto;
     opacity: 1;
@@ -691,9 +697,36 @@ body {
     width: fit-content;
 }
 
+.ActiveUser {
+    font-size: 10px;
+    margin: 1px 2px;
+    font-style: normal;
+    background-color: transparent;
+    border-top-right-radius: 0;
+    width: fit-content;
+}
+
 .dots::after {
     content: '';
     animation: dots 1.5s infinite;
+}
+
+.BlinkColor {
+    animation: blinkcolor 1s infinite;
+}
+
+@keyframes blinkcolor {
+    0% {
+        opacity: 0.7;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.7;
+    }
 }
 
 @keyframes dots {
@@ -844,7 +877,7 @@ body {
     border-bottom-right-radius: 10px;
     max-height: 650px;
     height: fit-content;
-    z-index: 99999;
+    z-index: 99999999;
     overflow: auto;
     animation: profileboxanimation 0.2s ease-in;
 
@@ -854,6 +887,15 @@ body {
     background-repeat: no-repeat;
     display: block;
     transition: opacity 1s ease;
+}
+
+.profile3dot {
+    transition: 0.5s;
+    transform: scale(1);
+}
+
+.profile3dot:hover {
+    transform: scale(1.5);
 }
 
 .Profilebadge:hover .profile3dot {
@@ -872,6 +914,16 @@ body {
     }
 }
 
+.passwordField{
+    position: relative;
+}
+
+.toggleeye {
+    position: absolute;
+    margin-right: 10px;
+    right: 8px;
+    top: 14px;
+}
 
 .table {
     background-color: #ffffffbe;

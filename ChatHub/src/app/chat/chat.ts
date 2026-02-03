@@ -69,6 +69,7 @@ export class Chat {
     { icon: '🔥' },
   ];
 
+  isPasswordVisible = false;
   uploadProgress = 0;
   PopUpValue = false;
   nick: any = null;
@@ -384,9 +385,9 @@ export class Chat {
     this.ShowOptionvalue = !this.ShowOptionvalue;
   }
 
-  HeaderMenu(event2: MouseEvent) {
-    event2.stopPropagation();
+  HeaderMenu() {
     this.HeaderMenuValue = !this.HeaderMenuValue;
+    this.isPasswordVisible  =false;
   }
 
   @HostListener('document:click', ['$event'])
@@ -397,9 +398,9 @@ export class Chat {
     }
 
     //~==================================    PROFILE MENU-BOX  ===============================
-    if (this.HeaderMenuValue && this.ProfileBox && !this.ProfileBox.nativeElement.contains(event.target)) {
-      this.HeaderMenuValue = false;
-    }
+    // if (this.HeaderMenuValue && this.ProfileBox && !this.ProfileBox.nativeElement.contains(event.target)) {
+    //   this.HeaderMenuValue = false;
+    // }
   }
 
   //~===========================  IMAGE UPLOAD  ============================================
