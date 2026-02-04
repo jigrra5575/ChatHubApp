@@ -102,7 +102,7 @@ Modern  right-form design [ With Animation ]
 <p>• Receiver Message UI</p>
 
 <img width="249" height="323" alt="reciever" src="https://github.com/user-attachments/assets/618d820f-b1c4-4a86-b6b2-27f4fcf875f7" />
-<p>• Full Chat Window [ With Live Date ]</p>
+<p>• Full Chat Window [ With 🔴Live Date ]</p>
 <br>
 <img width="1432" height="701" alt="live date formate" src="https://github.com/user-attachments/assets/ee01269a-23a6-4099-8904-3f3a67470511" />
 <br>
@@ -115,7 +115,7 @@ Shows:<br>
     <li>Password</li>
     <li>Email</li>
     <li>Group-Details</li>    
-    <li>Group Members Count [ Live }</li>
+    <li>Group Members Count [ 🔴Live }</li>
   </ol>
   </p>
 <img width="336" height="504" alt="p-box" src="https://github.com/user-attachments/assets/569bbf3f-b300-4391-b2eb-9e66667c59d3" />
