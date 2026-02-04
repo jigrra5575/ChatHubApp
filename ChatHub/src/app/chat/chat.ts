@@ -20,7 +20,7 @@ export class Chat {
     private cdr: ChangeDetectorRef,
     private route: Router,
     private http: HttpClient,
-    private service: Service,
+    public service: Service,
   ) { }
 
   //~===========================  LOCAL VARIABLE  ================================

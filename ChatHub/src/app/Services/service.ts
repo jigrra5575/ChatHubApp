@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -44,4 +45,11 @@ export class Service {
   DeleteMessageDBMS(id: number) {
     return this.http.delete(`https://localhost:7249/api/Chat/MessageDelete/id=${id}`);
   }
+
+//!=========================  LOADING SCreeen  ================================
+
+  public isLoading = new BehaviorSubject<boolean>(false);
+
+  show() { this.isLoading.next(true); }
+  hide() { this.isLoading.next(false); }
 }

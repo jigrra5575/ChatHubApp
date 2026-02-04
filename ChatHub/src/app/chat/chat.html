@@ -419,3 +419,8 @@
   </div>
   <input type="button" value="Close" (click)="closeMessageInfo()">
 </div>
+
+<div *ngIf="service.isLoading | async" class="loader-overlay">
+  <div class="spinner-border text-warning mb-2" role="status"></div>
+  <h5 class="text-white dots">Loading Messages</h5>
+</div>
